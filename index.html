@@ -1052,6 +1052,36 @@ function closeAuth(){
 
 </script>
 
+    <!-- discord login successful script -->
+
+    <script>
+
+const params = new URLSearchParams(window.location.search);
+
+const username = params.get("username");
+const avatar = params.get("avatar");
+const id = params.get("id");
+
+if(username && avatar){
+
+    const accountBtn = document.querySelector(".account-btn");
+
+    accountBtn.innerHTML = `
+        <img
+        src="https://cdn.discordapp.com/avatars/${id}/${avatar}.png"
+        style="
+            width:100%;
+            height:100%;
+            border-radius:50%;
+            object-fit:cover;
+        "
+        >
+    `;
+
+}
+
+    </script>
+
 
 </body>
    </html>
