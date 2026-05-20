@@ -1054,7 +1054,7 @@ function closeAuth(){
 
     <!-- discord login successful script -->
 
-    <script>
+<script>
 
 const params = new URLSearchParams(window.location.search);
 
@@ -1063,6 +1063,12 @@ const avatar = params.get("avatar");
 const id = params.get("id");
 
 if(username && avatar){
+
+    localStorage.setItem("riglifyUser", JSON.stringify({
+        username,
+        avatar,
+        id
+    }));
 
     const accountBtn = document.querySelector(".account-btn");
 
@@ -1080,8 +1086,7 @@ if(username && avatar){
 
 }
 
-    </script>
-
+</script>
 
 </body>
    </html>
