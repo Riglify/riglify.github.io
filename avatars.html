@@ -1110,6 +1110,30 @@ overflow-y:auto;
     object-fit:cover;
     border-radius:14px;
 }
+
+        
+    /* Fix for the anchor tag wrapping the card */
+.grid a {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Makes the whole card clickable */
+}
+    
+/* Active Page State */
+.nav-center a.active {
+    color: white;
+    display: inline-block;
+    transition: transform .2s ease, color .2s ease;
+}
+
+.nav-center a.active::after {
+    width: 100%;
+}
+    
+    /* When hovering over the already active link */
+.nav-center a.active:hover {
+    transform: scale(1.05);
+}
     
     
 </style>
@@ -1212,7 +1236,7 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
     <div class="nav-center">
 
-        <a href="#">Avatars</a>
+        <a href="#" class="active">Avatars</a>
         <a href="#">Bundles</a>
         <a href="#">Models</a>
         <a href="#">Items</a>
