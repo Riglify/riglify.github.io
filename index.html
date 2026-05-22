@@ -52,7 +52,7 @@ body{
     position:sticky;
     top:0;
     z-index:999;
-}
+} 
 
 /* LEFT */
 
@@ -142,7 +142,7 @@ body{
 
 .nav-center a:hover::after{
     width:100%;
-}
+} 
 
 /* RIGHT */
 
@@ -670,9 +670,29 @@ overflow-y:auto;
 }
     
     
+    /* Fix for the anchor tag wrapping the card */
+.grid a {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Makes the whole card clickable */
+}
     
-    
+/* Active Page State */
+.nav-center a.active {
+    color: white;
+    display: inline-block;
+    transition: transform .2s ease, color .2s ease;
+}
 
+.nav-center a.active::after {
+    width: 100%;
+}
+    
+    /* When hovering over the already active link */
+.nav-center a.active:hover {
+    transform: scale(1.05);
+}
+    
 </style>
 </head>
 <body>
@@ -774,9 +794,9 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
     <div class="nav-center">
 
         <a href="/avatars">Avatars</a>
-        <a href="#" onclick="alert('We%27re sorry!! This page is still in development. Please try again later.')">Bundles</a>
-        <a href="#" onclick="alert('We%27re sorry!! This page is still in development. Please try again later.')">Models</a>
-        <a href="#" onclick="alert('We%27re sorry!! This page is still in development. Please try again later.')">Items</a>
+        <a href="#" onclick="alert('We\'re so sorry!! This page is still in development. Please try again later.')">Bundles</a>
+        <a href="#" onclick="alert('We\'re so sorry!! This page is still in development. Please try again later.')">Models</a>
+        <a href="#" onclick="alert('We\'re so sorry!! This page is still in development. Please try again later.')">Items</a>
 
     </div>
 
@@ -862,12 +882,12 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
             <p>
                 Import Roblox avatars with accessories,
                 clothing, body colors, and more.
-            </p>
+            </p><br />
 
         </div>
         </a>
 
-        <div class="card" onclick="alert('We%27re sorry!! This page is still in development. Please try again later.')">
+        <div class="card" onclick="alert('We\'re so sorry!! This page is still in development. Please try again later.')">
 
             <div class="placeholder-img">
                 <i class="fa-solid fa-cube"></i>
@@ -882,7 +902,7 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
         </div>
 
-<div class="card" onclick="alert('We%27re sorry!! This page is still in development. Please try again later.')">
+<div class="card" onclick="alert('We\'re so sorry!! This page is still in development. Please try again later.')">
 
     <div class="placeholder-img">
         <i class="fa-solid fa-book"></i>
@@ -1091,4 +1111,4 @@ if(username && avatar){
 </script>
 
 </body>
-   </html>
+    </html>
