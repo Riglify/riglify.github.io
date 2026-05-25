@@ -23,6 +23,18 @@ backend is working. The lines they are on are below. -->
 <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="Riglify" />
 <link rel="manifest" href="/favicons/site.webmanifest" />
+    
+    
+<meta property="og:title" content="Roblox Avatar Importer | Riglify">
+<meta property="og:description" content="Import Roblox avatars directly into Prisma3D with accessories, clothing, layered items, body colors, and more."> <!-- default: Riglify is a simple working Roblox asset & avatar importer. -->
+<meta property="og:image" content="https://riglify.github.io/favicons/logo_main.png">
+<meta property="og:url" content="https://riglify.github.io">
+<meta name="theme-color" content="#0b0d12">
+    
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Roblox Avatar Importer | Riglify">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://riglify.github.io/favicons/logo_main.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -357,6 +369,7 @@ body{
     animation:popupShow .25s ease;
     max-height:90vh;
     overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* CLOSE */
@@ -681,6 +694,7 @@ body{
     z-index:5000;
     padding:20px;
     overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* BOX */
@@ -696,6 +710,7 @@ body{
     box-shadow:0 0 50px rgba(0,0,0,.5);
     max-height:90vh;
 overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* CONTENT */
@@ -1003,6 +1018,7 @@ overflow-y:auto;
 .asset-scroll{
     max-height:520px;
     overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
     display:grid;
     grid-template-columns:
     repeat(auto-fill,minmax(150px,1fr));
@@ -1189,14 +1205,14 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
                 <!-- ROBLOX -->
 
-                <button class="roblox-btn">
+                <button class="roblox-btn" onclick="window.location.href='https://riglify.onrender.com/auth/github'">
 
-                    <i class="fa-solid fa-cube"></i>
+                    <i class="fa-brands fa-github"></i>
 
-                    Continue with Roblox
+                    Continue with GitHub
 
                 </button>
-
+                
 
             </div>
 
@@ -1256,6 +1272,9 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
     <div style="color: black;background-color:red;font-family:Inter;">
         <center>
             <br />
+        <h3 style="color: white;">Riglify's backend is temporarily down</h3>
+            <p style="color: white;">Due to Render and my free space filled up, I have to wait until June for Riglify to continue to work. Please stay tuned by joining the Discord or Telegram server! Thanks :)</p>
+            <br /><hr style="color: white;" /><br />
         <h3 style="color: white;">WIP - Work in Progress!</h3>
           <br />
         <p style="color: white;">Hi there! Riglify just got made on May 17, 2026, so this project will take some time to work on. Our official Discord support server and Telegram channel are both out now! Scroll down to the footer to visit it! More awesome stuff will come here soon, so stay tuned by pressing CTRL + D to bookmark. <br /><br /> Thank you!</p>
@@ -1502,8 +1521,8 @@ async function searchAvatar(){
     overlay.style.display = "flex";
 
     content.innerHTML = `
-        <p style="color:#9ca3af;">
-            Importing avatar...
+        <p style="color:#9ca3af;" align="center">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Importing avatar...
         </p>
     `;
 
@@ -1518,8 +1537,8 @@ async function searchAvatar(){
         if(!data.success){
 
             content.innerHTML = `
-                <p style="color:red;">
-                    User not found.
+                <p style="color:red;" align="center">
+                    <i class="fa-solid fa-x" style="color: rgb(255, 0, 0);"></i> User not found.
                 </p>
             `;
 
@@ -1548,12 +1567,13 @@ async function searchAvatar(){
             2D
         </button>
 
-        <button
-            class="toggle-btn"
-            onclick="show3DPreview(this)"
-        >
-            3D
-        </button>
+       <button
+    class="toggle-btn"
+    
+    style="opacity:.5;cursor:not-allowed;"
+>
+    3D - Coming Soon!
+</button>
 
     </div>
 
@@ -1567,11 +1587,11 @@ async function searchAvatar(){
 
     <!-- 3D -->
 
-    <iframe
-        id="preview3d"
-        class="preview-3d"
-        src="https://www.roblox.com/avatar-thumbnail-3d/json?userId=${data.userId}"
-    ></iframe>
+    <img
+    src="${data.thumbnail3d}"
+    class="preview-avatar preview-3d"
+    id="preview3d"
+>
 
 </div>
 
@@ -1604,6 +1624,7 @@ async function searchAvatar(){
             <button>.FBX</button>
             <button>.DAE</button>
             <button>.PLY</button>
+            <button>.RBXM</button>
 
         </div>
 
@@ -1619,27 +1640,41 @@ async function searchAvatar(){
 
         <div class="asset-scroll">
 
-            ${data.assets.map(asset => `
+${data.assets
+.filter(asset =>
+    asset.assetType !== "Animation" &&
+    asset.assetType !== "Emote"
+)
+.map(asset => `
 
-                <div class="asset-card">
+    <div class="asset-card">
 
-                    <div class="asset-thumb">
-                        <i class="fa-solid fa-shirt"></i>
-                    </div>
+        <div class="asset-thumb">
 
-                    <p>
-                        Asset ${asset.id}
-                    </p>
-
-                    <button>
-                        Download
-                    </button>
-
-                </div>
-
-            `).join("")}
+            ${
+                asset.image
+                ?
+                `<img
+                    src="${asset.image}"
+                    class="asset-image"
+                >`
+                :
+                `<i class="fa-solid fa-shirt"></i>`
+            }
 
         </div>
+
+        <p>
+            ${asset.name || `Asset ${asset.id}`}
+        </p>
+
+        <button onclick="downloadAsset('${asset.id}')">
+    Download
+</button>
+
+    </div>
+
+`).join("")}
 
     </div>
 
@@ -1652,9 +1687,10 @@ async function searchAvatar(){
         console.log(err);
 
         content.innerHTML = `
-            <p style="color:red;">
-                Failed to import avatar.
+            <p style="color:red;" align="center">
+                <i class="fa-solid fa-face-sad-cry" style="color: rgb(255, 0, 0);"></i> Failed to import avatar!
             </p>
+        <p style="color:yellow" align="center"><br /><i class="fa-solid fa-triangle-exclamation"></i> ALERT: Recently, our backend has not been working for a bit, so this may be why this is not working. Try again, and if this message shows up, please join our Discord or Telegram to stay tuned for when it's back up and working!</p>
         `;
 
     }
@@ -1718,9 +1754,18 @@ function show3DPreview(btn){
     btn.classList.add("active-toggle");
 
 }
+    
+    function downloadAsset(id){
+
+    window.open(
+        `https://riglify.onrender.com/download/${id}`,
+        "_blank"
+    );
+
+}
 
 </script>
 
 
 </body>
-  </html>
+    </html>
