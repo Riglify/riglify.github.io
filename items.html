@@ -973,37 +973,87 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 </div>
 
 <!-- NAVBAR -->
+<!-- NAVBAR -->
 
 <nav class="navbar">
 
+    <!-- LEFT -->
+
     <div class="left-nav">
 
-<div class="logo">
-    <img src="https://riglify.github.io/favicons/logo_main.png" alt="Riglify Logo">
-</div>
+        <!-- SIDEBAR BUTTON -->
+
+        <button class="menu-btn" onclick="openSidebar()">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+        <!-- LOGO -->
+
+        <div class="logo">
+            <img src="https://riglify.github.io/favicons/logo_main.png">
+        </div>
+
+        <!-- BRAND -->
 
         <div class="brand">
             <h1>Riglify</h1>
-            <p>Roblox asset & avatar importer</p>
+            <p class="brand-subtitle">
+                Roblox asset & avatar importer
+            </p>
         </div>
-      
+
     </div>
+
+    <!-- MOBILE SIDEBAR -->
+
+<div id="mobile-sidebar">
+
+    <div class="sidebar-top">
+
+        <a href="/"><h2>Riglify</h2></a>
+
+        <button onclick="closeSidebar()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+    <a href="/avatars">Avatars</a>
+    <a href="/bundles">Bundles</a>
+    <a href="/models">Models</a>
+    <a href="/items">Items</a>
+
+</div>
+
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
     <!-- CENTER -->
 
     <div class="nav-center">
 
         <a href="/avatars">Avatars</a>
-        <a href="/bundles">Bundles</a>
-        <a href="/models">Models</a>
-        <a href="/items" class="active">Items</a>
+        <a href="#">Bundles</a>
+        <a href="#">Models</a>
+        <a href="#">Items</a>
 
     </div>
 
+    <!-- RIGHT -->
+ <div class="nav-right">
 
-    <button class="account-btn" onclick="openAuth()">
-        <i class="fa-solid fa-user-plus"></i>
-    </button>
+    <div class="account-wrapper" id="account-wrapper">
+
+        <button
+            class="account-btn"
+            id="login-btn"
+            onclick="openAuth()"
+        >
+            <i class="fa-solid fa-user-plus"></i>
+        </button>
+
+    </div>
+
+</div>
 
 </nav>
     
