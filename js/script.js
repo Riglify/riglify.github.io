@@ -38,7 +38,7 @@ if(savedUser){
     document.getElementById("login-btn")
     .style.display = "none";
 
-    document.getElementById("account-wrapper")
+    document.getElementById("account-btn")
     .style.display = "block";
 
     document.getElementById("account-btn")
@@ -53,7 +53,6 @@ if(savedUser){
         "
         >
     `;
-
 }
 
 /* MENU */
