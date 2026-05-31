@@ -1,3 +1,5 @@
+<a href="javascript:(function(){var script=document.createElement('script');script.src='//cdn.jsdelivr.net/npm/eruda';document.body.appendChild(script);script.onload=function(){eruda.init();}})();"><button>Open console</button></a>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,7 +175,7 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
         <button
     class="account-btn"
-    id="login-btn"
+    id="account-btn"
     onclick="openAuth()"
     style="display:block !important;"
 >
@@ -181,6 +183,25 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
         </button>
 
     </div>
+
+     <div class="account-wrapper" id="account-wrapper">
+
+    <button
+        class="account-btn"
+        id="login-btn"
+        onclick="openAuth()"
+    >
+        <i class="fa-solid fa-user-plus"></i>
+    </button>
+
+    <button
+        class="account-btn"
+        id="account-btn"
+        style="display:none;"
+        onclick="toggleAccountMenu()"
+    ></button>
+
+     </div>
 
 </div>
 
