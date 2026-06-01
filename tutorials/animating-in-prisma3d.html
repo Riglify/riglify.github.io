@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>How to Animate in Prisma3D - Riglify Tutorials | Riglify</title>
+    
+<link rel="stylesheet" href="file:///storage/emulated/0/Download/Coding%20Testing/css/riglify-styles.css" />
+<link rel="stylesheet" href="/css/styles.css" />
+    
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+<link rel="shortcut icon" href="/favicons/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Riglify" />
+<link rel="manifest" href="/favicons/site.webmanifest" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+</head>
+<body>
+    
+    <!-- AUTH MODAL -->
+
+<div id="auth-overlay">
+
+    <div id="auth-box">
+
+        <!-- CLOSE -->
+
+        <button id="auth-close" onclick="closeAuth()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- CONTENT -->
+
+        <div class="auth-content">
+
+            <!-- LOGO -->
+
+            <img
+                src="https://riglify.github.io/favicons/logo_main.png"
+                class="auth-logo"
+            >
+
+            <h1>Welcome to Riglify</h1>
+
+            <p>
+                Connect your account to save imports,
+                access cloud features, and manage assets.
+            </p>
+
+            <!-- BUTTONS -->
+
+            <div class="auth-buttons">
+
+                <!-- DISCORD -->
+
+                <button
+class="discord-btn"
+onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
+>
+
+                    <i class="fa-brands fa-discord"></i>
+
+                    Continue with Discord
+
+                </button>
+
+                <!-- ROBLOX -->
+
+                <button class="roblox-btn">
+
+                    <i class="fa-brands fa-github"></i>
+
+                    Continue with GitHub
+
+                </button>
+
+
+            </div>
+
+            <!-- TERMS -->
+
+            <span class="auth-terms">
+
+                By continuing, you agree to the
+                Terms of Service and Privacy Policy.
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <!-- LEFT -->
+
+    <div class="left-nav">
+
+        <!-- SIDEBAR BUTTON -->
+
+        <button class="menu-btn" onclick="openSidebar()">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+        <!-- LOGO -->
+
+        <div class="logo">
+            <img src="https://riglify.github.io/favicons/logo_main.png">
+        </div>
+
+        <!-- BRAND -->
+
+        <div class="brand">
+            <h1>Riglify</h1>
+            <p class="brand-subtitle">
+                Roblox asset & avatar importer
+            </p>
+        </div>
+
+    </div>
+
+    <!-- MOBILE SIDEBAR -->
+
+<div id="mobile-sidebar">
+
+    <div class="sidebar-top">
+
+        <a href="/"><h2>Riglify</h2></a>
+
+        <button onclick="closeSidebar()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+    <a href="/avatars">Avatars</a>
+    <a href="/bundles">Bundles</a>
+    <a href="/models">Models</a>
+    <a href="/items">Items</a>
+
+</div>
+
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- CENTER -->
+
+    <div class="nav-center">
+
+        <a href="/avatars">Avatars</a>
+        <a href="#">Bundles</a>
+        <a href="#">Models</a>
+        <a href="#">Items</a>
+
+    </div>
+
+    <!-- RIGHT -->
+ <div class="nav-right">
+
+    <div class="account-wrapper" id="account-wrapper">
+
+        <button
+            class="account-btn"
+            id="login-btn"
+            onclick="openAuth()"
+        >
+            <i class="fa-solid fa-user-plus"></i>
+        </button>
+
+    </div>
+
+</div>
+
+</nav>
+    
+    <!-- Video player alert -->
+    <div style="background-color: orange;">
+        <br />
+        <center>
+            <h2 style="color: black;"><i class="fa-solid fa-x"></i> There's no tutorials at the moment!</h2>
+            <p style="color: black;">Hey there! You stumbled upon a tutorial page that doesn't currently have a tutorial! But no worries- I'm still working on the site, and then I'll work on the tutorials! So basically you get a little preview of what will eventually be here. So yeah, enjoy! :)</p>
+        </center>
+        <br />
+    </div>
+    <!-- end of Video player alert -->
+    
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h2>
+    How to <span>Animate in Prisma3D</span>
+</h2>
+
+<p>
+    Learn how to export your avatar, item,
+    model, or bundle into Prisma3D and
+    animate them!
+</p>
+    
+
+</section>
+    
+<section class="section" style="background-image: url('https://media.istockphoto.com/id/2189182579/vector/simple-frame-with-orange-and-black-diagonal-stripes.jpg?s=612x612&w=0&k=20&c=KvyoJv-KrpYxw_xbY-UJcqIgbP5yHvROhMyJiek9mUY='); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 400px; padding: 40px;">
+    <!-- Video player alert -->
+    <div>
+        <br />
+        <center>
+            <h2 style="color: black;"><i class="fa-solid fa-x"></i> There's no tutorials at the moment!</h2> <br />
+            <p style="color: black;">Hey there! You stumbled upon a tutorial page that doesn't currently have a tutorial! But no worries- I'm still <br /> working on the site, and then I'll work on the tutorials! So basically you get a little preview of what will eventually <br /> be here. So yeah, enjoy! :) <br /><br /><br /> Wait...so technically, since this is a secret page, I should tell you a secret! When you click on the circle on the <br /> right hand corner, you can login with Discord and GitHub to save the Roblox avatars, models, bundles, and <br /> items you want! Lots more will come soon too! Try it out today :)</p>
+            <br /> <br /> <h5 style="color: black;">Image background credit: <a style="color: black; text-decoration: none;" href="https://media.istockphoto.com/id/2189182579/vector/simple-frame-with-orange-and-black-diagonal-stripes.jpg?s=612x612&w=0&k=20&c=KvyoJv-KrpYxw_xbY-UJcqIgbP5yHvROhMyJiek9mUY=" target="_blank">IStockPhoto</a></h5>
+        </center>
+        <br />
+    </div>
+    <!-- end of Video player alert -->
+    
+</section>
+
+<!-- CUSTOM VIDEO PLAYER -->
+
+    <!--<div class="video-player">
+
+    <video
+        id="tutorial-video"
+        poster="THUMBNAIL_URL"
+        preload="metadata"
+    >
+        <source
+            src="VIDEO_TUTORIAL_URL"
+            type="video/mp4"
+        >
+    </video>
+
+    <!-- CONTROLS -->
+
+    <!--  <div class="video-controls">
+
+        <button id="play-btn">
+            <i class="fa-solid fa-play"></i>
+        </button>
+
+        <input
+            type="range"
+            id="seek-bar"
+            value="0"
+        >
+
+        <span id="time">
+            0:00 / 0:00
+        </span>
+
+        <button id="fullscreen-btn">
+            <i class="fa-solid fa-expand"></i>
+        </button>
+
+    </div>
+
+</div>
+
+    </div>
+
+</section>-->
+    
+    <!--  <hr />-->
+    
+
+<!-- ABOUT -->
+    <!--
+<section class="section">
+
+    <h2 class="section-title">
+        About Riglify
+    </h2>
+
+    <div class="about-box">
+
+        <p>
+            Riglify was created to help Roblox creators
+            easily import avatars, bundles, models,
+            and accessories into Prisma3D and other
+            animation software.
+        </p>
+
+        <p>
+            Many existing tools out there stopped working,
+            became outdated, or felt unsafe to use.
+            Riglify aims to provide a cleaner,
+            modern, and community-focused alternative.
+        </p>
+
+        <p>
+            I was inspired by <i>faizda.my.id</i> until the site shut down permanently.
+            This project does something similar, but mostly focuses on accessibility,
+            creator freedom, and mobile-friendly tools.
+        </p>
+
+    </div>
+
+</section>-->
+
+<!-- FOOTER -->
+
+<!-- REPLACE YOUR FOOTER WITH THIS -->
+
+<footer class="footer">
+
+    <div class="footer-top">
+
+        <!-- BRAND -->
+
+        <div class="footer-brand">
+
+            <div class="footer-logo">
+    <img src="https://riglify.github.io/favicons/logo_main.png">
+</div>
+
+            <div>
+                <h3>Riglify</h3>
+
+                <p>
+                    Modern Roblox importing tools
+                    for Prisma3D creators.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- LINKS -->
+
+        <div class="footer-links">
+
+            <div class="footer-column">
+
+                <h4>Platform</h4>
+
+                <a href="/">Home</a>
+                <a href="/tutorials">Tutorials</a>
+                <a href="/tools">Import Tools</a>
+                <a href="/updates">Updates</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h4>Legal</h4>
+
+                <a href="/policy">Privacy Policy</a>
+                <a href="/tos">Terms of Service</a>
+                <a href="/disclaimer">Disclaimer</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h4>Community</h4>
+
+                <a href="https://discord.gg/tUyzjXvU5f">Discord</a>
+                <a href="https://github.com/Riglify">GitHub</a>
+                <a href="https://youtube.com/@NothingButTyler">YouTube</a>
+                <a href="https://t.me/riglify">Telegram</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SOCIALS -->
+
+    <div class="footer-socials">
+
+        <a href="https://discord.gg/tUyzjXvU5f">
+            <i class="fa-brands fa-discord"></i>
+        </a>
+
+        <a href="https://github.com/Riglify">
+            <i class="fa-brands fa-github"></i>
+        </a>
+
+        <a href="https://youtube.com/@NothingButTyler">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+        
+        <a href="https://t.me/riglify">
+            <i class="fa-brands fa-telegram"></i>
+        </a>
+
+    </div>
+
+    <!-- BOTTOM -->
+
+    <div class="footer-bottom">
+
+        <p>
+            Made for Roblox animators & creators with passion.
+        </p>
+
+        <p>
+            © 2026 Riglify. Not affiliated with Roblox Corporation or Prisma3D.
+        </p>
+
+    </div>
+
+</footer>
+
+<script src="file:///storage/emulated/0/Download/Coding%20Testing/js/riglify-script.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+  </html>
+
