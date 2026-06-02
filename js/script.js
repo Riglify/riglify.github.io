@@ -553,4 +553,28 @@ video.requestFullscreen();
 }
 };
 
+function openLogoutConfirm(){
+
+    document.getElementById(
+        "logout-overlay"
+    ).style.display = "flex";
+
+}
+
+function closeLogoutConfirm(){
+
+    document.getElementById(
+        "logout-overlay"
+    ).style.display = "none";
+
+}
+
+function confirmLogout(){
+
+    localStorage.removeItem("riglifyUser");
+
+    window.location.reload();
+
+}
+
 
