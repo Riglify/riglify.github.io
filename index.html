@@ -6,8 +6,13 @@
 
 <title>Riglify - A Simple Roblox Asset and Avatar Importer</title>
     
+    <!-- WebCode Mobile -->
 <link rel="stylesheet" href="file:///storage/emulated/0/Download/Coding%20Testing/css/riglify-styles.css" />
+    <!-- Default -->
 <link rel="stylesheet" href="/css/styles.css" />
+    <!-- CodePen (PC) -->
+    <link rel="stylesheet" href="style.css" />
+    
     
 <!-- <a href="javascript:(function(){var script=document.createElement('script');script.src='//cdn.jsdelivr.net/npm/eruda';document.body.appendChild(script);script.onload=function(){eruda.init();}})();"><button>Open console</button></a> -->
     
@@ -201,9 +206,9 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
             Saved Imports
         </a>
 
-        <button onclick="logout()">
-            Logout
-        </button>
+        <button onclick="openLogoutConfirm()">
+    Logout
+</button>
 
     </div>
 
@@ -213,7 +218,37 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
 </nav>
 
-    
+    <div id="logout-overlay">
+
+    <div id="logout-box">
+
+        <h2>Log Out?</h2>
+
+        <p>
+            Are you sure you want to log out of Riglify?
+        </p>
+
+        <div class="logout-actions">
+
+            <button
+                class="cancel-btn"
+                onclick="closeLogoutConfirm()"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="logout-btn"
+                onclick="confirmLogout()"
+            >
+                Log Out
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
     
         
     <!-- Announcement -->
@@ -469,8 +504,12 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
 </footer>
 
+    <!-- WebCode Mobile -->
 <script src="file:///storage/emulated/0/Download/Coding%20Testing/js/riglify-script.js"></script>
+    <!-- Default -->
 <script src="/js/script.js"></script>
+    <!-- CodePen (PC) -->
+<script src="script.js"></script>
 
 </body>
-                                 </html>
+    </html>
