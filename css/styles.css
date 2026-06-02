@@ -845,8 +845,8 @@ overflow-y:auto;
     cursor:pointer;
     text-decoration:none;
 
-    font-size:14px;
     font-family:'Inter',sans-serif;
+    font-size:16px;
 }
 
 #account-menu a:hover,
