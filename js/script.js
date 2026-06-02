@@ -38,8 +38,8 @@ if(savedUser){
     document.getElementById("login-btn")
     .style.display = "none";
 
-    document.getElementById("account-wrapper")
-    .style.display = "block";
+    document.getElementById("account-btn")
+    .style.display = "block"; // <-- add this
 
     document.getElementById("account-btn")
     .innerHTML = `
