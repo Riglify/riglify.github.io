@@ -1,14 +1,3 @@
-<!-- note to self -->
-<!-- I temporarily added warnings to users so that they
-know that the site is a preview until the real thing
-works and is ready. Make sure to remove them when the
-backend is working. The lines they are on are below. -->
-<!-- LINES:
-    1272
-    AND
-    1560
---><!-- Thank you! the rest of the code is below. -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -210,14 +199,6 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
         
     <!-- Announcement -->
-    <div style="color: black;background-color:yellow;font-family:Inter;">
-        <center>
-            <br />
-                <h3 style="color: black;"><i class="fa-solid fa-triangle-exclamation"></i> Riglify's backend is temporarily down</h3>
-            <br />
-            <p style="color: black;">Due to Render and my free space filled up, I have to wait until June for Riglify to continue to work. Please stay tuned by joining the Discord or Telegram server! Thanks :)</p>
-            <br />
-    </div>
     <div style="color: black;background-color:red;font-family:Inter;">
         <center>
             <br />
@@ -247,8 +228,6 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 </p>
     
 </section>
-
-        <!-- lol --> <center><p style="color:yellow"><i class="fa-solid fa-triangle-exclamation"></i> I'm so sorry, but this is temporarily disabled until we get our backend to work. Thank you.</p></center>
     
     <!-- AVATAR SEARCH -->
 
@@ -259,11 +238,10 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
         <input
             type="text"
             id="avatarInput"
-            placeholder="Enter Roblox username or User ID... [DISABLED]"
-            disabled
+            placeholder="Enter Roblox username or User ID..."
         > 
 
-        <button onclick="searchAvatar()" disabled>
+        <button onclick="searchAvatar()">
             Import Avatar
         </button>
         
