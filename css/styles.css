@@ -1196,4 +1196,270 @@ overflow-y:auto;
     color:white;
 }
 
+/* ==========================================================================
+   RIGLIFY TOTAL CLEANUP - COMBINED DARK THEME & RESPONSIVE LAYOUT
+   ========================================================================== */
 
+/* --- 1. OVERLAY & POPUP CONTAINER --- */
+#avatar-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+#avatar-popup-overlay.active {
+    display: flex;
+}
+
+#avatar-popup {
+    width: 95vw;
+    max-width: 1100px;
+    height: auto;
+    max-height: 90vh;
+    background: #141821;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 24px;
+    position: relative;
+    overflow-y: auto;
+}
+
+/* Update the grid container to support the top row header spanning across */
+.avatar-layout-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    row-gap: 16px; /* Explicit control over vertical gaps */
+    column-gap: 28px;
+    width: 100%;
+}
+
+/* Ensure the top header block stays clean and acts as a single container row */
+.grid-top-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Adjust the banner margin to work nicely with the grid's top location */
+.mobile-scroll-hint {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(91, 140, 255, 0.1);
+    border: 1px solid rgba(91, 140, 255, 0.2);
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: #93b3ff;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+    margin-bottom: 12px; /* Extra room below banner before content split */
+}
+
+/* --- 4. LEFT SIDE STYLING (PREVIEW & EXPORTS) --- */
+.preview-box {
+    width: 100%;
+    background: #1a1f2b;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+}
+
+.preview-avatar {
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: contain !important;
+    display: block;
+}
+
+.preview-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    width: 100%;
+    justify-content: center;
+    background: #141821; 
+    padding: 6px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.preview-toggle .toggle-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #8d95a3;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preview-toggle .toggle-btn.active-toggle {
+    background: #1a1f2b;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.grid-download-types {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.export-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; 
+    width: 100%;
+}
+
+.export-buttons .export-btn {
+    flex: 1 1 auto; /* Fix: Allows buttons to grow automatically to fit text labels */
+    padding: 12px 18px; /* Boosted padding keeps lettering locked inside safely */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    background: #1a1f2b;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap !important; 
+    text-align: center;
+    transition: background 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.export-buttons .export-btn:hover {
+    background: #232a3a;
+    border-color: rgba(123, 168, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.export-buttons .export-btn.secondary-export {
+    background: linear-gradient(135deg, #5b8cff, #785cff);
+    border: none;
+}
+
+.export-buttons .export-btn.secondary-export:hover {
+    box-shadow: 0 4px 15px rgba(91, 140, 255, 0.2);
+}
+
+#moreFormats .export-btn {
+    padding: 10px 16px;
+    background: #1a1f2b;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    color: #d5d9e2;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* --- 5. RIGHT SIDE STYLING (ASSET LIST & CARDS) --- */
+.asset-scroll {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.asset-card {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    gap: 16px;
+    background: #141821; 
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.asset-thumb {
+    width: 90px;
+    height: 90px;
+    background: #1a1f2b;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 6px;
+}
+
+.asset-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.asset-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.asset-info h3 {
+    margin: 0;
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+}
+
+.asset-info button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #5b8cff, #785cff);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    width: fit-content;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.asset-info button:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 15px rgba(91, 140, 255, 0.2);
+}
+
+/* --- 6. RESPONSIVE MOBILE ADJUSTMENTS --- */
+@media (max-width: 850px) {
+    .avatar-layout-grid {
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+    
+    .preview-box {
+        min-height: 280px;
+    }
+    
+    .preview-avatar {
+        height: 200px !important;
+    }
+    
+    #avatar-popup {
+        padding: 16px;
+    }
+
+    /* Activates the navigation helper bar cleanly on small browser spaces */
+    .mobile-scroll-hint {
+        display: flex;
+    }
+    }
