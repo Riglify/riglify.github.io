@@ -314,26 +314,23 @@ async function searchAvatar(){
                     <img src="${data.thumbnail}" class="preview-avatar" id="preview2d">
                     
                     <div id="preview3d" class="preview-3d-container" style="display: none; width: 100%; height: 250px;">
-    <model-viewer 
-        id="avatar-3d-engine"
-        src="https://riglify.onrender.com/download/all_glb" 
-        poster="${data.thumbnail}"
-        loading="lazy"
-        reveal="interaction"
-        alt="Roblox Avatar 3D Model"
-        auto-rotate 
-        camera-controls 
-        interaction-prompt="none"
-        shadow-intensity="1" 
-        exposure="1.2"
-        style="width: 100%; height: 100%; --poster-color: transparent;">
-        
-        <div slot="poster" class="threed-loading-slot">
-            <div class="threed-spinner"></div>
-            <span style="font-size: 13px; color: #8d95a3;">Streaming 3D Grid Asset...</span>
-        </div>
-    </model-viewer>
-</div>
+                        <model-viewer 
+                            id="avatar-3d-engine"
+                            poster="${data.thumbnail}"
+                            alt="Roblox Avatar 3D Model"
+                            auto-rotate 
+                            camera-controls 
+                            interaction-prompt="none"
+                            shadow-intensity="1" 
+                            exposure="1.2"
+                            style="width: 100%; height: 100%; --poster-color: transparent;">
+                            
+                            <div slot="poster" class="threed-loading-slot">
+                                <div class="threed-spinner"></div>
+                                <span style="font-size: 13px; color: #8d95a3;">Instantiating Local Mesh Engine...</span>
+                            </div>
+                        </model-viewer>
+                    </div>
                 </div>
 
                 <div class="grid-download-types">
@@ -416,6 +413,24 @@ async function searchAvatar(){
         </div>
         `;
 
+        // FIXED LOCATION: Downloads the 3D model into RAM immediately when the popup opens successfully
+        (async () => {
+            try {
+                const response = await fetch("https://riglify.onrender.com/download/all_glb");
+                if (!response.ok) return;
+                
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const modelEngine = document.getElementById("avatar-3d-engine");
+                if (modelEngine) {
+                    modelEngine.src = blobUrl;
+                }
+            } catch (e) {
+                console.warn("Background 3D pre-loader failed:", e);
+            }
+        })();
+
         // Pinned close button automatic override finder code
         setTimeout(() => {
             const popup = document.getElementById('avatar-popup');
@@ -451,7 +466,6 @@ function closeAvatarPopup() {
 }
 
 /* 2D / 3D PREVIEW SWITCHER ENGINE */
-/* 2D / 3D PREVIEW SWITCHER ENGINE */
 function toggleAvatarView(viewType) {
     const img2D = document.getElementById("preview2d");
     const container3D = document.getElementById("preview3d"); 
@@ -465,12 +479,6 @@ function toggleAvatarView(viewType) {
         container3D.style.display = "flex"; 
         btn3D.classList.add("active-toggle");
         btn2D.classList.remove("active-toggle");
-        
-        // INSTANT KICKSTART: Forces the 3D engine to fire up immediately on click
-        const modelEngine = document.getElementById("avatar-3d-engine");
-        if(modelEngine) {
-            modelEngine.dismissPoster();
-        }
     } else {
         container3D.style.display = "none";
         img2D.style.display = "block";
@@ -487,136 +495,4 @@ function openFormatsModal(event) {
 }
 
 function closeFormatsModal() {
-    const modalOverlay = document.getElementById("formatsModalOverlay");
-    if (modalOverlay) modalOverlay.style.display = "none";
-}
-    
-/* ==========================================================================
-   RIGLIFY SINGLE-ITEM ZIP DOWNLOAD ENGINE
-   ========================================================================== */
-async function downloadAsset(id) {
-    // If it's a main option like 'all_obj', 'all_glb', 'unity_fbx', etc., download normally
-    if (id.startsWith('all_') || id.includes('_')) {
-        window.open(`https://riglify.onrender.com/download/${id}`, "_blank");
-        return;
-    }
-
-    // Otherwise, it's a specific accessory item! Let's zip it.
-    const zip = new JSZip();
-    let assetName = `Asset_${id}`;
-    
-    // Find the asset card in your popup list to grab its actual name for the file
-    const assetCards = document.querySelectorAll('.asset-card');
-    for (let card of assetCards) {
-        if (card.querySelector('button')?.getAttribute('onclick')?.includes(id)) {
-            const heading = card.querySelector('h3')?.textContent.trim();
-            if (heading) {
-                // Sanitize the name so it's a safe filename
-                assetName = heading.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                break;
-            }
-        }
-    }
-
-    try {
-        // Fetch the raw asset file from your server invisibly
-        const response = await fetch(`https://riglify.onrender.com/download/${id}`);
-        if (!response.ok) throw new Error("Could not fetch asset data.");
-        
-        const blob = await response.blob();
-        
-        // Put the file inside the zip (adjust extension if your backend serves something other than .rbxm)
-        zip.file(`${assetName}.rbxm`, blob);
-        
-        // Generate the zip and download it to their computer
-        const zipContent = await zip.generateAsync({ type: "blob" });
-        saveAs(zipContent, `${assetName}.zip`);
-        
-    } catch (error) {
-        console.error("ZIP Error:", error);
-        // Fallback: If the zipping fails, just download the raw file standard way so it doesn't break
-        window.open(`https://riglify.onrender.com/download/${id}`, "_blank");
-    }
-}
-
-function openAvatarPopup() {
-    document
-        .getElementById("avatar-popup-overlay")
-        .classList.add("active");
-}
-
-const video = document.getElementById("tutorial-video");
-const playBtn = document.getElementById("play-btn");
-const seekBar = document.getElementById("seek-bar");
-const time = document.getElementById("time");
-const fullscreenBtn = document.getElementById("fullscreen-btn");
-
-/* ONLY RUN IF THE VIDEO ELEMENT EXISTS ON THIS PAGE */
-if (video) {
-
-    /* PLAY */
-    if (playBtn) {
-        playBtn.onclick = () => {
-            if(video.paused){
-                video.play();
-                playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-            }else{
-                video.pause();
-                playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-            }
-        };
-    }
-
-    /* UPDATE */
-    video.addEventListener("timeupdate", () => {
-        if (seekBar) seekBar.value = (video.currentTime / video.duration) * 100 || 0;
-        
-        const format = (t) => {
-            const mins = Math.floor(t / 60); 
-            const secs = Math.floor(t % 60).toString().padStart(2,"0");
-            return `${mins}:${secs}`;
-        };
-        
-        if (time) time.textContent = `${format(video.currentTime)} / ${format(video.duration)}`;
-    });
-
-    /* SEEK */
-    if (seekBar) {
-        seekBar.addEventListener("input", () => {
-            video.currentTime = (seekBar.value / 100) * video.duration;
-        });
-    }
-
-    /* FULLSCREEN */
-    if (fullscreenBtn) {
-        fullscreenBtn.onclick = () => {
-            if(video.requestFullscreen){
-                video.requestFullscreen();
-            }
-        };
-    }
-}
-
-function openLogoutConfirm(){
-
-    document.getElementById(
-        "logout-overlay"
-    ).style.display = "flex";
-
-}
-
-function closeLogoutConfirm(){
-
-    document.getElementById(
-        "logout-overlay"
-    ).style.display = "none";
-
-}
-
-function confirmLogout(){
-
-    localStorage.removeItem("riglifyUser");
-
-    window.location.reload();
-
-    }
+    const modalOverlay
