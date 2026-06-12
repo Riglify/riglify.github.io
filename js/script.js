@@ -195,6 +195,8 @@ if(searchInput && suggestions){
 
 document.addEventListener("click", (e) => {
 
+    if(!searchInput || !suggestions) return;
+
     if(
         !searchInput.contains(e.target) &&
         !suggestions.contains(e.target)
@@ -242,14 +244,6 @@ if(query && avatarSearch){
 
 // avatars full script
 
-function openAuth(){
-    document.getElementById("auth-overlay").style.display = "flex";
-}
-
-function closeAuth(){
-    document.getElementById("auth-overlay").style.display = "none";
-}
-
 /* SEARCH */
 
 async function searchAvatar(){
@@ -294,167 +288,117 @@ async function searchAvatar(){
         }
 
         content.innerHTML = `
+        <div class="avatar-layout-grid">
 
-<div class="avatar-layout">
+            <div class="grid-top-header" style="grid-column: 1 / -1; margin-bottom: -4px;">
+                <h2 style="font-size: 20px; font-weight: 700; margin: 0 0 8px 0;">
+                    Roblox Character - ${data.username}
+                </h2>
+                
+                <div class="mobile-scroll-hint">
+                    <span>Swipe down to import specific items</span>
+                    <div class="hint-arrows">
+                        <span>↓</span><span>↓</span>
+                    </div>
+                </div>
+            </div>
 
-    <!-- LEFT -->
+            <div class="grid-left-column">
+                
+                <div class="preview-box">
+                    <div class="preview-toggle">
+                        <button class="toggle-btn active-toggle" onclick="show2DPreview(this)">2D</button>
+                        <button class="toggle-btn" style="opacity:.5;cursor:not-allowed;">3D - Coming Soon!</button>
+                    </div>
+                    <img src="${data.thumbnail}" class="preview-avatar" id="preview2d">
+                    <img src="${data.thumbnail3d}" class="preview-avatar preview-3d" id="preview3d" style="display:none;">
+                </div>
 
-    <div class="avatar-preview-side">
+                <div class="grid-download-types">
+                    <div class="export-buttons">
+                        <button class="export-btn">Download as .OBJ</button>
+                        <button class="export-btn">Download as .GLB</button>
+                        <button class="export-btn secondary-export" onclick="toggleMoreFormats()">Other...</button>
+                    </div>
+                    
+                    <div id="moreFormats" style="display: none; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                        <button class="export-btn">.FBX</button>
+                        <button class="export-btn">.DAE</button>
+                        <button class="export-btn">.PLY</button>
+                        <button class="export-btn">.RBXM</button>
+                    </div>
+                    
+                    <p style="color: red; margin-top: 12px; font-size: 13px; text-align: center;">
+                        NOTE: this is just a preview. The real version will be out soon.
+                    </p>
+                </div>
 
-<div class="preview-box">
+            </div>
 
-    <!-- TOGGLE -->
-
-    <div class="preview-toggle">
-
-        <button
-            class="toggle-btn active-toggle"
-            onclick="show2DPreview(this)"
-        >
-            2D
-        </button>
-
-       <button
-    class="toggle-btn"
-    
-    style="opacity:.5;cursor:not-allowed;"
->
-    3D - Coming Soon!
-</button>
-
-    </div>
-
-    <!-- 2D -->
-
-    <img
-        src="${data.thumbnail}"
-        class="preview-avatar"
-        id="preview2d"
-    >
-
-    <!-- 3D -->
-
-    <img
-    src="${data.thumbnail3d}"
-    class="preview-avatar preview-3d"
-    id="preview3d"
->
-
-</div>
-
-        <div class="export-buttons">
-
-            <button class="export-btn">
-                Download as .OBJ
-            </button>
-
-            <button class="export-btn">
-                Download as .GLB
-            </button>
-
-            <button
-                class="export-btn secondary-export"
-                onclick="toggleMoreFormats()"
-            >
-                Other...
-            </button>
-        
-        <!-- warn -->
-        <p style="color: red;" align="center">NOTE: this is just a preview. The real version will be out soon.</p>
-
-        </div>
-
-        <!-- DROPDOWN -->
-
-        <div id="moreFormats">
-
-            <button>.FBX</button>
-            <button>.DAE</button>
-            <button>.PLY</button>
-            <button>.RBXM</button>
+            <div class="grid-items-download">
+                <div class="asset-scroll" style="max-height: 450px; overflow-y: auto; padding-right: 4px;">
+                    ${data.assets ? data.assets
+                        .filter(asset =>
+                            asset.assetType !== "Animation" &&
+                            asset.assetType !== "Emote"
+                        )
+                        .map(asset => {
+                            console.log(asset);
+                            return `
+                                <div class="asset-card">
+                                    <div class="asset-thumb">
+                                        <img src="${asset.image}" class="asset-image" alt="${asset.name}">
+                                    </div>
+                                    <div class="asset-info">
+                                        <h3>${asset.name || `Asset ${asset.id}`}</h3>
+                                        <button onclick="downloadAsset('${asset.id}')">Download</button>
+                                    </div>
+                                </div>
+                            `;
+                        }).join("")
+                    : '<p style="color:#9ca3af;">No assets found</p>'}
+                </div>
+            </div>
 
         </div>
+        `;
 
-    </div>
-
-    <!-- RIGHT -->
-
-    <div class="avatar-assets-side">
-
-        <h2>
-            Roblox Character - ${data.username}
-        </h2>
-
-        <div class="asset-scroll">
-
-${data.assets
-.filter(asset =>
-    asset.assetType !== "Animation" &&
-    asset.assetType !== "Emote"
-)
-.map(asset => `
-
-    <div class="asset-card">
-
-        <div class="asset-thumb">
-
-            ${
-                asset.image
-                ?
-                `<img
-                    src="${asset.image}"
-                    class="asset-image"
-                >`
-                :
-                `<i class="fa-solid fa-shirt"></i>`
+        // Pinned close button automatic override finder code
+        setTimeout(() => {
+            const popup = document.getElementById('avatar-popup');
+            if (popup) {
+                const closeButtons = popup.querySelectorAll('button, .close, [onclick*="close"]');
+                closeButtons.forEach(btn => {
+                    if (btn.textContent.trim() === '×' || btn.textContent.toLowerCase().includes('x') || btn.classList.contains('close-popup-btn')) {
+                        btn.onclick = function() {
+                            closeAvatarPopup();
+                        };
+                    }
+                });
             }
+        }, 50);
 
-        </div>
-
-        <p>
-            ${asset.name || `Asset ${asset.id}`}
-        </p>
-
-        <button onclick="downloadAsset('${asset.id}')">
-    Download
-</button>
-
-    </div>
-
-`).join("")}
-
-    </div>
-
-</div>
-
-`;
-
-    }catch(err){
-
+    } catch(err) {
         console.log(err);
-
         content.innerHTML = `
             <p style="color:red;" align="center">
                 <i class="fa-solid fa-face-sad-cry" style="color: rgb(255, 0, 0);"></i> Failed to import avatar!
             </p>
-                `;
-
+        `;
     }
-
 }
 
 /* CLOSE */
 
-function closeAvatarPopup(){
-
-    document.getElementById(
-        "avatar-popup-overlay"
-    ).style.display = "none";
-
+function closeAvatarPopup() {
+    const overlay = document.getElementById('avatar-popup-overlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+        overlay.style.display = 'none'; // Backup clear
+    }
 }
     
-    
-    function toggleMoreFormats(){
+function toggleMoreFormats(){
 
     const box =
     document.getElementById("moreFormats");
@@ -471,7 +415,7 @@ function closeAvatarPopup(){
 
 }
     
-    function show2DPreview(btn){
+function show2DPreview(btn){
 
     document.getElementById("preview2d")
     .style.display = "block";
@@ -501,7 +445,7 @@ function show3DPreview(btn){
 
 }
     
-    function downloadAsset(id){
+function downloadAsset(id){
 
     window.open(
         `https://riglify.onrender.com/download/${id}`,
@@ -516,42 +460,57 @@ function openAvatarPopup() {
         .classList.add("active");
 }
 
-function closeAvatarPopup() {
-    document
-        .getElementById("avatar-popup-overlay")
-        .classList.remove("active");
-}
+const video = document.getElementById("tutorial-video");
+const playBtn = document.getElementById("play-btn");
+const seekBar = document.getElementById("seek-bar");
+const time = document.getElementById("time");
+const fullscreenBtn = document.getElementById("fullscreen-btn");
 
-const video = document.getElementById("tutorial-video");const playBtn = document.getElementById("play-btn");const seekBar = document.getElementById("seek-bar");const time = document.getElementById("time");const fullscreenBtn = document.getElementById("fullscreen-btn");
-/* PLAY */
-playBtn.onclick = () => {
-if(video.paused){
-video.play();
-playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-}else{
-video.pause();
-playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+/* ONLY RUN IF THE VIDEO ELEMENT EXISTS ON THIS PAGE */
+if (video) {
+
+    /* PLAY */
+    if (playBtn) {
+        playBtn.onclick = () => {
+            if(video.paused){
+                video.play();
+                playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            }else{
+                video.pause();
+                playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+            }
+        };
+    }
+
+    /* UPDATE */
+    video.addEventListener("timeupdate", () => {
+        if (seekBar) seekBar.value = (video.currentTime / video.duration) * 100 || 0;
+        
+        const format = (t) => {
+            const mins = Math.floor(t / 60); 
+            const secs = Math.floor(t % 60).toString().padStart(2,"0");
+            return `${mins}:${secs}`;
+        };
+        
+        if (time) time.textContent = `${format(video.currentTime)} / ${format(video.duration)}`;
+    });
+
+    /* SEEK */
+    if (seekBar) {
+        seekBar.addEventListener("input", () => {
+            video.currentTime = (seekBar.value / 100) * video.duration;
+        });
+    }
+
+    /* FULLSCREEN */
+    if (fullscreenBtn) {
+        fullscreenBtn.onclick = () => {
+            if(video.requestFullscreen){
+                video.requestFullscreen();
+            }
+        };
+    }
 }
-};
-/* UPDATE */
-video.addEventListener("timeupdate", () => {
-seekBar.value = (video.currentTime / video.duration) * 100 || 0;
-const format = (t) => {
-const mins = Math.floor(t / 60); const secs = Math.floor(t % 60) .toString() .padStart(2,"0");
-return `${mins}:${secs}`;
-};
-time.textContent = `${format(video.currentTime)} / ${format(video.duration)}`;
-});
-/* SEEK */
-seekBar.addEventListener("input", () => {
-video.currentTime = (seekBar.value / 100) * video.duration;
-});
-/* FULLSCREEN */
-fullscreenBtn.onclick = () => {
-if(video.requestFullscreen){
-video.requestFullscreen();
-}
-};
 
 function openLogoutConfirm(){
 
@@ -575,4 +534,4 @@ function confirmLogout(){
 
     window.location.reload();
 
-}
+            }
