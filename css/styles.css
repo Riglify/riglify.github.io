@@ -1462,4 +1462,202 @@ overflow-y:auto;
     .mobile-scroll-hint {
         display: flex;
     }
+}
+
+/* ==========================================================================
+   RIGLIFY FORMATS OVERLAY CLEANUP - MATCHES WEBSITE DARK THEME
+   ========================================================================== */
+
+/* Dark blurred fullscreen modal mask background overlay */
+.formats-overlay-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;   /* Forces full viewport width tracking */
+    height: 100vh;  /* Forces full viewport height tracking */
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    padding: 20px;
+}
+
+/* Fluid capsule card container layout - Scales dynamically with window resizing */
+.formats-pill-card {
+    width: 100%;
+    /* Dynamically calculates a smooth fluid size between 320px and 480px based on page width */
+    max-width: clamp(320px, 85vw, 480px); 
+    /* Ensures it never overflows the top/bottom of the page if the browser height is small */
+    max-height: 85vh; 
+    background: #11151d;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    padding: 28px 32px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.55);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Keeps the outer capsule container perfectly locked */
+}
+
+/* Modal Title bar layout */
+.formats-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 18px; /* Increased slightly for visual hierarchy matching h3 rules */
+    letter-spacing: 0.3px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06); /* Changed from gray to your fine white divider */
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+}
+
+/* Capsule cross X toggle button layout */
+.formats-modal-close-x {
+    background: #1a1f2b !important; /* Set to your system secondary button backdrop */
+    border: none !important;
+    border-radius: 12px; /* Smooth card style corners instead of plain unstyled vector */
+    color: white !important;
+    font-size: 18px !important;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer !important;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.formats-modal-close-x:hover {
+    color: #ef4444 !important; /* Retained your micro-feedback warning color indicator */
+    background: #232a3a !important;
+    transform: scale(1.05);
+}
+
+.formats-modal-scrollable-body {
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+/* Category Grid Structure Layout */
+.formats-grid-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 480px) {
+    .formats-grid-box {
+        grid-template-columns: 1fr; /* Drop into single stacked list row on mobile screens */
     }
+}
+
+.modal-section-block {
+    margin-bottom: 16px;
+}
+
+.modal-section-block h4 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8d95a3; /* Reset color scheme to match your generic subtitle styles */
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modal-section-block button {
+    display: block;
+    width: 100%;
+    background: #141821; /* Card backgrounds matching .account-menu dynamic buttons */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #d5d9e2;
+    text-align: left;
+    font-size: 14px;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    margin-bottom: 6px;
+}
+
+.modal-section-block button:hover {
+    background: #1d2432;
+    color: white;
+    border-color: #7b8cff; /* Applies your accent color accenting hover outlines */
+}
+
+/* ==========================================================================
+   RIGLIFY 3D MODEL VIEWER CONTAINER STYLES
+   ========================================================================== */
+
+/* The main container holding the 3D canvas environment */
+.preview-3d-container {
+    width: 100%;
+    height: 350px; /* Aligns with your minimum box height limits */
+    background: #0f131b; /* Matches your site's video-player baseline fill */
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The actual 3D rendering engine canvas element */
+model-viewer {
+    width: 100%;
+    height: 100%;
+    --poster-color: transparent; /* Prevents white flashing while loading model */
+    --progress-bar-color: #7b8cff; /* Uses your iconic accent purple-blue */
+    --progress-bar-height: 4px;
+    cursor: grab;
+}
+
+model-viewer:active {
+    cursor: grabbing;
+}
+
+/* Smooth glow effect behind the 3D avatar to bring out details in a dark space */
+.preview-3d-container::before {
+    content: '';
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(123, 140, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+    bottom: 10%;
+    pointer-events: none; /* Keeps it from blocking click/drag rotations */
+    z-index: 1;
+}
+
+/* Custom UI loading slot override to keep it styled natively */
+.threed-loading-slot {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #8d95a3;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Small loading ring using your accent color */
+.threed-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.05);
+    border-top-color: #7b8cff;
+    border-radius: 50%;
+    animation: spin3d 0.8s linear infinite;
+}
+
+@keyframes spin3d {
+    to { transform: rotate(360deg); }
+}
+
+
