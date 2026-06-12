@@ -307,25 +307,41 @@ async function searchAvatar(){
                 
                 <div class="preview-box">
                     <div class="preview-toggle">
-                        <button class="toggle-btn active-toggle" onclick="show2DPreview(this)">2D</button>
-                        <button class="toggle-btn" style="opacity:.5;cursor:not-allowed;">3D - Coming Soon!</button>
+                        <button class="toggle-btn active-toggle" id="btn2d" onclick="toggleAvatarView('2D')">2D</button>
+                        <button class="toggle-btn" id="btn3d" onclick="toggleAvatarView('3D')">3D Preview</button>
                     </div>
+                    
                     <img src="${data.thumbnail}" class="preview-avatar" id="preview2d">
-                    <img src="${data.thumbnail3d}" class="preview-avatar preview-3d" id="preview3d" style="display:none;">
+                    
+                    <div id="preview3d" class="preview-3d-container" style="display: none; width: 100%; height: 250px;">
+    <model-viewer 
+        id="avatar-3d-engine"
+        src="https://riglify.onrender.com/download/all_glb" 
+        poster="${data.thumbnail}"
+        loading="lazy"
+        reveal="interaction"
+        alt="Roblox Avatar 3D Model"
+        auto-rotate 
+        camera-controls 
+        interaction-prompt="none"
+        shadow-intensity="1" 
+        exposure="1.2"
+        style="width: 100%; height: 100%; --poster-color: transparent;">
+        
+        <div slot="poster" class="threed-loading-slot">
+            <div class="threed-spinner"></div>
+            <span style="font-size: 13px; color: #8d95a3;">Streaming 3D Grid Asset...</span>
+        </div>
+    </model-viewer>
+</div>
                 </div>
 
                 <div class="grid-download-types">
                     <div class="export-buttons">
-                        <button class="export-btn">Download as .OBJ</button>
-                        <button class="export-btn">Download as .GLB</button>
-                        <button class="export-btn secondary-export" onclick="toggleMoreFormats()">Other...</button>
-                    </div>
-                    
-                    <div id="moreFormats" style="display: none; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
-                        <button class="export-btn">.FBX</button>
-                        <button class="export-btn">.DAE</button>
-                        <button class="export-btn">.PLY</button>
-                        <button class="export-btn">.RBXM</button>
+                        <button class="export-btn" onclick="downloadAsset('all_obj')">Download as .OBJ</button>
+                        <button class="export-btn" onclick="downloadAsset('all_glb')">Download as .GLB</button>
+                        <button class="export-btn" onclick="downloadAsset('all_rbxm')">Download as .RBXM</button>
+                        <button class="export-btn secondary-export" onclick="openFormatsModal(event)">More...</button>
                     </div>
                     
                     <p style="color: red; margin-top: 12px; font-size: 13px; text-align: center;">
@@ -361,6 +377,43 @@ async function searchAvatar(){
             </div>
 
         </div>
+
+        <div id="formatsModalOverlay" class="formats-overlay-blur" style="display: none;" onclick="closeFormatsModal()">
+            <div class="formats-pill-card" onclick="event.stopPropagation()">
+                <div class="formats-modal-header">
+                    <span>Export Formats</span>
+                    <button class="formats-modal-close-x" onclick="closeFormatsModal()">×</button>
+                </div>
+                
+                <div class="formats-modal-scrollable-body">
+                    <div class="formats-grid-box">
+                        <div class="modal-section-block">
+                            <h4>Game Engines</h4>
+                            <button onclick="downloadAsset('unity_fbx')">• Unity (.FBX)</button>
+                            <button onclick="downloadAsset('unreal_fbx')">• Unreal Engine (.FBX)</button>
+                        </div>
+                        
+                        <div class="modal-section-block">
+                            <h4>3D Software</h4>
+                            <button onclick="downloadAsset('blender_glb')">• Blender (.GLB)</button>
+                            <button onclick="downloadAsset('maya_obj')">• Maya (.OBJ)</button>
+                            <button onclick="downloadAsset('c4d_dae')">• Cinema4D (.DAE)</button>
+                        </div>
+                        
+                        <div class="modal-section-block">
+                            <h4>Roblox</h4>
+                            <button onclick="downloadAsset('all_rbxm')">• .RBXM</button>
+                        </div>
+                        
+                        <div class="modal-section-block">
+                            <h4>Other Formats</h4>
+                            <button onclick="downloadAsset('all_ply')">• .PLY</button>
+                            <button onclick="downloadAsset('all_stl')">• .STL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         `;
 
         // Pinned close button automatic override finder code
@@ -388,70 +441,102 @@ async function searchAvatar(){
     }
 }
 
-/* CLOSE */
-
+/* CLOSE MAIN POPUP */
 function closeAvatarPopup() {
     const overlay = document.getElementById('avatar-popup-overlay');
     if (overlay) {
         overlay.classList.remove('active');
-        overlay.style.display = 'none'; // Backup clear
+        overlay.style.display = 'none';
     }
 }
+
+/* 2D / 3D PREVIEW SWITCHER ENGINE */
+/* 2D / 3D PREVIEW SWITCHER ENGINE */
+function toggleAvatarView(viewType) {
+    const img2D = document.getElementById("preview2d");
+    const container3D = document.getElementById("preview3d"); 
+    const btn2D = document.getElementById("btn2d");
+    const btn3D = document.getElementById("btn3d");
+
+    if (!img2D || !container3D) return;
+
+    if (viewType === "3D") {
+        img2D.style.display = "none";
+        container3D.style.display = "flex"; 
+        btn3D.classList.add("active-toggle");
+        btn2D.classList.remove("active-toggle");
+        
+        // INSTANT KICKSTART: Forces the 3D engine to fire up immediately on click
+        const modelEngine = document.getElementById("avatar-3d-engine");
+        if(modelEngine) {
+            modelEngine.dismissPoster();
+        }
+    } else {
+        container3D.style.display = "none";
+        img2D.style.display = "block";
+        btn2D.classList.add("active-toggle");
+        btn3D.classList.remove("active-toggle");
+    }
+}
+
+/* OPEN AND CLOSE SEPARATE FORMATS MODAL OVERLAY */
+function openFormatsModal(event) {
+    if(event) event.stopPropagation();
+    const modalOverlay = document.getElementById("formatsModalOverlay");
+    if (modalOverlay) modalOverlay.style.display = "flex";
+}
+
+function closeFormatsModal() {
+    const modalOverlay = document.getElementById("formatsModalOverlay");
+    if (modalOverlay) modalOverlay.style.display = "none";
+}
     
-function toggleMoreFormats(){
-
-    const box =
-    document.getElementById("moreFormats");
-
-    if(box.style.display === "flex"){
-
-        box.style.display = "none";
-
-    }else{
-
-        box.style.display = "flex";
-
+/* ==========================================================================
+   RIGLIFY SINGLE-ITEM ZIP DOWNLOAD ENGINE
+   ========================================================================== */
+async function downloadAsset(id) {
+    // If it's a main option like 'all_obj', 'all_glb', 'unity_fbx', etc., download normally
+    if (id.startsWith('all_') || id.includes('_')) {
+        window.open(`https://riglify.onrender.com/download/${id}`, "_blank");
+        return;
     }
 
-}
+    // Otherwise, it's a specific accessory item! Let's zip it.
+    const zip = new JSZip();
+    let assetName = `Asset_${id}`;
     
-function show2DPreview(btn){
+    // Find the asset card in your popup list to grab its actual name for the file
+    const assetCards = document.querySelectorAll('.asset-card');
+    for (let card of assetCards) {
+        if (card.querySelector('button')?.getAttribute('onclick')?.includes(id)) {
+            const heading = card.querySelector('h3')?.textContent.trim();
+            if (heading) {
+                // Sanitize the name so it's a safe filename
+                assetName = heading.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                break;
+            }
+        }
+    }
 
-    document.getElementById("preview2d")
-    .style.display = "block";
-
-    document.getElementById("preview3d")
-    .style.display = "none";
-
-    document.querySelectorAll(".toggle-btn")
-    .forEach(b=>b.classList.remove("active-toggle"));
-
-    btn.classList.add("active-toggle");
-
-}
-
-function show3DPreview(btn){
-
-    document.getElementById("preview2d")
-    .style.display = "none";
-
-    document.getElementById("preview3d")
-    .style.display = "block";
-
-    document.querySelectorAll(".toggle-btn")
-    .forEach(b=>b.classList.remove("active-toggle"));
-
-    btn.classList.add("active-toggle");
-
-}
-    
-function downloadAsset(id){
-
-    window.open(
-        `https://riglify.onrender.com/download/${id}`,
-        "_blank"
-    );
-
+    try {
+        // Fetch the raw asset file from your server invisibly
+        const response = await fetch(`https://riglify.onrender.com/download/${id}`);
+        if (!response.ok) throw new Error("Could not fetch asset data.");
+        
+        const blob = await response.blob();
+        
+        // Put the file inside the zip (adjust extension if your backend serves something other than .rbxm)
+        zip.file(`${assetName}.rbxm`, blob);
+        
+        // Generate the zip and download it to their computer
+        const zipContent = await zip.generateAsync({ type: "blob" });
+        saveAs(zipContent, `${assetName}.zip`);
+        
+    } catch (error) {
+        console.error("ZIP Error:", error);
+        // Fallback: If the zipping fails, just download the raw file standard way so it doesn't break
+        window.open(`https://riglify.onrender.com/download/${id}`, "_blank");
+    }
 }
 
 function openAvatarPopup() {
@@ -534,4 +619,4 @@ function confirmLogout(){
 
     window.location.reload();
 
-            }
+        }
