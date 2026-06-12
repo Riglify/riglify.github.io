@@ -619,4 +619,4 @@ function confirmLogout(){
 
     window.location.reload();
 
-        }
+    }
