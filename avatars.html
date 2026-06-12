@@ -35,6 +35,9 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/filesaver.js/2.0.5/FileSaver.min.js"></script>
+    
 </head>
 <body>
     
@@ -420,6 +423,36 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
 <script src="file:///storage/emulated/0/Download/Coding%20Testing/js/riglify-script.js"></script>
 <script src="/js/script.js"></script>
+    <!-- Import the component library for 3D rendering -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <script>
+    // Grab the DOM elements for the preview panels and buttons
+const img2d = document.getElementById('preview-image-2d');
+const container3d = document.getElementById('preview-container-3d');
+const btn2d = document.getElementById('btn-view-2d');
+const btn3d = document.getElementById('btn-view-3d');
 
+// When the user clicks the 3D View button
+btn3d.addEventListener('click', () => {
+    // Hide 2D image, show 3D container
+    img2d.style.display = 'none';
+    container3d.style.display = 'flex';
+    
+    // Update active button styles
+    btn3d.classList.add('active');
+    btn2d.classList.remove('active');
+});
+
+// When the user clicks the 2D View button
+btn2d.addEventListener('click', () => {
+    // Hide 3D container, show 2D image
+    container3d.style.display = 'none';
+    img2d.style.display = 'block';
+    
+    // Update active button styles
+    btn2d.classList.add('active');
+    btn3d.classList.remove('active');
+});
+    </script>
     </body>
-            </html>
+    </html>
