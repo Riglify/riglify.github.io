@@ -338,7 +338,7 @@ function closeAvatarPopup() {
 /* 2D / 3D PREVIEW SWITCHER ENGINE */
 function toggleAvatarView(viewType) {
     const img2D = document.getElementById("preview2d");
-    const container3D = document.getElementById("preview3d"); 
+    const container3D = document.getElementById("preview3d");
     const btn2D = document.getElementById("btn2d");
     const btn3D = document.getElementById("btn3d");
 
@@ -346,11 +346,10 @@ function toggleAvatarView(viewType) {
 
     if (viewType === "3D") {
         img2D.style.display = "none";
-        container3D.style.display = "flex"; 
+        container3D.style.display = "flex";
         btn3D.classList.add("active-toggle");
         btn2D.classList.remove("active-toggle");
-        
-         else {
+    } else {
         container3D.style.display = "none";
         img2D.style.display = "block";
         btn2D.classList.add("active-toggle");
@@ -376,7 +375,7 @@ function closeFormatsModal(event) {
 /* ==========================================================================
    RIGLIFY SINGLE-ITEM ZIP DOWNLOAD ENGINE
    ========================================================================== */
-function downloadAsset(id) {
+async function downloadAsset(id) {
     // data.userId should be the ID of the user currently being viewed
     const userId = currentViewingUserId; 
 
@@ -499,4 +498,4 @@ function closeLogoutConfirm(){
 function confirmLogout(){
     localStorage.removeItem("riglifyUser");
     window.location.reload();
-}
+                          }
