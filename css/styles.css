@@ -1660,4 +1660,303 @@ model-viewer:active {
     to { transform: rotate(360deg); }
 }
 
+/* =========================================================
+   DOWNLOAD POPUP
+========================================================= */
+
+.download-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+}
+
+.download-popup {
+    width: min(520px, 100%);
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    padding: 32px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #161b22,
+            #0d1117
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.6);
+
+    color: white;
+
+    text-align: center;
+
+    animation: downloadPopupIn 0.25s ease;
+}
+
+@keyframes downloadPopupIn {
+
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+}
+
+.download-popup-icon {
+
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 16px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(142, 68, 173, 0.18);
+
+    color: #c084fc;
+
+    font-size: 28px;
+
+}
+
+.download-popup h2 {
+
+    margin: 0;
+
+    font-size: 25px;
+
+}
+
+.download-popup-subtitle {
+
+    color: #9ca3af;
+
+    margin: 10px 0 25px;
+
+}
+
+.download-checklist {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    text-align: left;
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+}
+
+.download-step {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #9ca3af;
+
+    transition: 0.25s ease;
+
+}
+
+.download-step i {
+
+    width: 20px;
+
+    text-align: center;
+
+    font-size: 18px;
+
+}
+
+.download-step.completed {
+
+    color: #22c55e;
+
+}
+
+.download-step.completed i {
+
+    color: #22c55e;
+
+}
+
+.download-progress-note {
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+    margin-top: 18px;
+
+}
+
+.success-icon {
+
+    background: rgba(34, 197, 94, 0.15);
+
+    color: #22c55e;
+
+}
+
+.failure-icon {
+
+    background: rgba(239, 68, 68, 0.15);
+
+    color: #ef4444;
+
+}
+
+.download-popup-section {
+
+    margin-top: 24px;
+
+    text-align: left;
+
+}
+
+.download-popup-section h3 {
+
+    margin-bottom: 12px;
+
+    font-size: 16px;
+
+}
+
+.download-popup-buttons {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+}
+
+.download-popup-buttons a,
+
+.download-popup-buttons button,
+
+.download-popup-close {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 10px 14px;
+
+    background: #8e44ad;
+
+    color: white;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    transition: 0.2s ease;
+
+}
+
+.download-popup-buttons a:hover,
+
+.download-popup-buttons button:hover,
+
+.download-popup-close:hover {
+
+    transform: translateY(-2px);
+
+    background: #a855f7;
+
+}
+
+.tutorial-buttons a {
+
+    background: #242b35;
+
+}
+
+.download-error-box {
+
+    margin: 20px 0;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    background: rgba(239, 68, 68, 0.12);
+
+    border: 1px solid rgba(239, 68, 68, 0.3);
+
+    color: #fca5a5;
+
+    word-break: break-word;
+
+}
+
+.download-error-box strong {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #ef4444;
+
+}
+
+.download-failure-message {
+
+    color: #9ca3af;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+
+}
+
+.download-popup-close {
+
+    margin-top: 25px;
+
+    background: #242b35;
+
+}
+
 
