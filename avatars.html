@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="file:///storage/emulated/0/Download/Coding%20Testing/css/riglify-styles.css" />
 <link rel="stylesheet" href="/css/styles.css" />
     
+    <!-- Phoenix Code (PC) -->
+    <link rel="stylesheet" href="http://localhost:55866/riglify.github.io-main/css/styles.css" />
+    
+    
 <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
 <link rel="shortcut icon" href="/favicons/favicon.ico" />
@@ -199,20 +203,6 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 </div>
 
 </nav>
-
-        
-    <!-- Announcement -->
-    <div style="color: black;background-color:red;font-family:Inter;">
-        <center>
-            <br />
-            <h3 style="color: white;">WIP - Work in Progress!</h3>
-          <br />
-        <p style="color: white;">Hi there! Riglify just got made on May 17, 2026, so this project will take some time to work on. Our official Discord support server and Telegram channel are both out now! Scroll down to the footer to visit it! More awesome stuff will come here soon, so stay tuned by pressing CTRL + D to bookmark. <br /><br /> Thank you!</p>
-            <br />
-        </center>
-    </div>
-    <!-- end of Announcement -->
-    
     
 
 <!-- HERO -->
@@ -314,7 +304,176 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
 </div>
     
-    
+    <!-- DOWNLOAD POPUP -->
+
+<div id="download-popup-overlay" class="download-popup-overlay">
+
+    <div id="download-popup" class="download-popup">
+
+        <!-- DOWNLOAD PROGRESS -->
+
+        <div id="download-progress-screen">
+
+            <div class="download-popup-icon">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+            </div>
+
+            <h2>Downloading...</h2>
+
+            <p class="download-popup-subtitle">
+                Riglify is preparing your download.
+            </p>
+
+            <div class="download-checklist">
+
+                <div class="download-step" id="download-step-1">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Fetching avatar data...</span>
+                </div>
+
+                <div class="download-step" id="download-step-2">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Fetching Roblox assets...</span>
+                </div>
+
+                <div class="download-step" id="download-step-3">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Generating files...</span>
+                </div>
+
+                <div class="download-step" id="download-step-4">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Creating ZIP file...</span>
+                </div>
+
+                <div class="download-step" id="download-step-5">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Preparing your download...</span>
+                </div>
+
+            </div>
+
+            <p class="download-progress-note">
+                Once these are all checked, your file should be successfully downloaded!
+            </p>
+
+        </div>
+
+
+        <!-- DOWNLOAD SUCCESS -->
+
+        <div id="download-success-screen" style="display:none;">
+
+            <div class="download-popup-icon success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <h2>Download successful!</h2>
+
+            <p class="download-popup-subtitle">
+                Your ZIP file has been downloaded successfully.
+            </p>
+
+            <div class="download-popup-section">
+
+                <h3>Import More:</h3>
+
+                <div class="download-popup-buttons">
+
+                    <a href="/avatars">Avatars</a>
+                    <a href="/bundles">Bundles</a>
+                    <a href="/models">Models</a>
+                    <a href="/items">Items</a>
+
+                </div>
+
+            </div>
+
+            <div class="download-popup-section">
+
+                <h3>Tutorials:</h3>
+
+                <div class="download-popup-buttons tutorial-buttons">
+
+                    <a href="/tutorials/prisma3d-animation">
+                        How to Animate in Prisma3D
+                    </a>
+
+                    <a href="/tutorials/importing-accessories">
+                        Importing Accessories
+                    </a>
+
+                    <a href="/tutorials/bundles-models">
+                        Bundles & Models
+                    </a>
+
+                </div>
+
+            </div>
+
+            <button
+                class="download-popup-close"
+                onclick="closeDownloadPopup()"
+            >
+                Close
+            </button>
+
+        </div>
+
+
+        <!-- DOWNLOAD FAILURE -->
+
+        <div id="download-failure-screen" style="display:none;">
+
+            <div class="download-popup-icon failure-icon">
+                <i class="fa-solid fa-x"></i>
+            </div>
+
+            <h2>Download failed :(</h2>
+
+            <p class="download-popup-subtitle">
+                Something went wrong while preparing your download.
+            </p>
+
+            <div class="download-error-box">
+
+                <strong>Reason:</strong>
+
+                <span id="download-error-reason">
+                    Unknown error
+                </span>
+
+            </div>
+
+            <p class="download-failure-message">
+
+                You may try again, but if it continues to show this error,
+                please join our Discord server or Telegram server and we'll
+                be glad to help you out!
+
+            </p>
+
+            <div class="download-popup-buttons">
+
+                <button onclick="closeDownloadPopup()">
+                    Try Again
+                </button>
+
+                <a href="https://discord.gg/tUyzjXvU5f">
+                    Discord
+                </a>
+
+                <a href="https://t.me/riglify">
+                    Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <!-- FOOTER -->
 
@@ -423,6 +582,7 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
 <script src="file:///storage/emulated/0/Download/Coding%20Testing/js/riglify-script.js"></script>
 <script src="/js/script.js"></script>
+<!-- Phoenix Code (PC) --><script src="http://localhost:55866/riglify.github.io-main/js/script.js"></script>
     <!-- Import the component library for 3D rendering -->
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <script>
