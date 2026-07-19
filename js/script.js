@@ -148,6 +148,8 @@ if(queryVal && avatarSearch){
     avatarSearch.value = queryVal;
 }
 
+let currentViewingUserId = null;
+
 // avatars full script
 
 /* SEARCH */
@@ -172,9 +174,9 @@ async function searchAvatar(){
 
     try{
         const res = await fetch(`https://riglify.onrender.com/avatar/${username}`);
-        const data = await res.json();
+const data = await res.json();
 
-        if(!data.success){
+if(!data.success){
             if (content) {
                 content.innerHTML = `
                     <p style="color:red;" align="center">
@@ -184,6 +186,8 @@ async function searchAvatar(){
             }
             return;
         }
+        
+        currentViewingUserId = data.userId;
 
         if (content) {
             content.innerHTML = `
