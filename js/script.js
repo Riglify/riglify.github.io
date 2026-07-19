@@ -376,56 +376,67 @@ function closeFormatsModal(event) {
    RIGLIFY SINGLE-ITEM ZIP DOWNLOAD ENGINE
    ========================================================================== */
 async function downloadAsset(id) {
-    // data.userId should be the ID of the user currently being viewed
-    const userId = currentViewingUserId; 
 
-    if (id.startsWith('all_')) {
-        window.open(`https://riglify.onrender.com/download/${id}?userId=${userId}`, "_blank");
+    const userId = currentViewingUserId;
+
+    if (!userId) {
+        console.error("No avatar user ID found.");
         return;
     }
 
-    if (typeof JSZip === 'undefined') {
-        console.warn("JSZip missing, using direct file fallback.");
-        window.open(`https://riglify.onrender.com/download/${id}`, "_blank");
-        return;
-    }
+    const downloadUrl =
+        `https://riglify.onrender.com/download/${id}?userId=${userId}`;
 
-    const zip = new JSZip();
-    let assetName = `Asset_${id}`;
-    
-    const assetCards = document.querySelectorAll('.asset-card');
-    for (let card of assetCards) {
-        if (card.querySelector('button')?.getAttribute('onclick')?.includes(id)) {
-            const heading = card.querySelector('h3')?.textContent.trim();
-            if (heading) {
-                assetName = heading.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-                break;
-            }
-        }
-    }
+    console.log("Starting download:", downloadUrl);
 
     try {
-        const response = await fetch(`https://riglify.onrender.com/download/${id}`);
-        if (!response.ok) throw new Error("Could not fetch asset data.");
-        
-        const blob = await response.blob();
-        zip.file(`${assetName}.rbxm`, blob);
-        
-        const zipContent = await zip.generateAsync({ type: "blob" });
-        
-        if (typeof saveAs !== 'undefined') {
-            saveAs(zipContent, `${assetName}.zip`);
-        } else {
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(zipContent);
-            link.download = `${assetName}.zip`;
-            link.click();
+
+        const response = await fetch(downloadUrl);
+
+        if (!response.ok) {
+            throw new Error(
+                `Download failed with status ${response.status}`
+            );
         }
-        
+
+        const blob = await response.blob();
+
+        const blobUrl =
+            window.URL.createObjectURL(blob);
+
+        const link =
+            document.createElement("a");
+
+        link.href = blobUrl;
+
+        link.download =
+            `Riglify_Asset_${id}.rbxm`;
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+        window.URL.revokeObjectURL(blobUrl);
+
+        console.log(
+            "Download completed successfully."
+        );
+
     } catch (error) {
-        console.error("ZIP Error:", error);
-        window.open(`https://riglify.onrender.com/download/${id}`, "_blank");
+
+        console.error(
+            "Download error:",
+            error
+        );
+
+        alert(
+            "The download failed. Please try again."
+        );
+
     }
+
 }
 
 function openAvatarPopup() {
