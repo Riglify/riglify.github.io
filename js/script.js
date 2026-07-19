@@ -414,7 +414,7 @@ async function downloadAsset(id) {
         link.href = blobUrl;
 
         link.download =
-            `Riglify_Asset_${id}.rbxm`;
+           `Riglify_${id}.zip`;
 
         document.body.appendChild(link);
 
