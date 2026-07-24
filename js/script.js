@@ -379,31 +379,237 @@ function closeFormatsModal(event) {
 /* ==========================================================================
    RIGLIFY SINGLE-ITEM ZIP DOWNLOAD ENGINE
    ========================================================================== */
-async function downloadAsset(id) {
+/* ==========================================================================
+   RIGLIFY DOWNLOAD PROGRESS ENGINE
+   ========================================================================== */
 
-    const userId = currentViewingUserId;
+let downloadInProgress = false;
 
-    if (!userId) {
-        console.error("No avatar user ID found.");
-        return;
+function openDownloadProgress(){
+
+    const overlay =
+        document.getElementById("download-progress-overlay");
+
+    if(overlay){
+        overlay.classList.add("active");
     }
 
-    const downloadUrl =
-        `https://riglify.onrender.com/download/${id}?userId=${userId}`;
+    resetDownloadSteps();
 
-    console.log("Starting download:", downloadUrl);
+}
 
-    try {
+function closeDownloadProgress(){
 
-        const response = await fetch(downloadUrl);
+    const overlay =
+        document.getElementById("download-progress-overlay");
 
-        if (!response.ok) {
+    if(overlay){
+        overlay.classList.remove("active");
+    }
+
+}
+
+function resetDownloadSteps(){
+
+    const steps = document.querySelectorAll(".download-step");
+
+    steps.forEach(step => {
+
+        step.classList.remove("active");
+        step.classList.remove("complete");
+
+        const icon = step.querySelector("i");
+
+        if(icon){
+
+            icon.className =
+                "fa-solid fa-circle-notch";
+
+        }
+
+    });
+
+    const complete =
+        document.getElementById("download-complete");
+
+    if(complete){
+
+        complete.classList.remove("show");
+
+    }
+
+}
+
+function setDownloadStep(stepId, state){
+
+    const step =
+        document.getElementById(stepId);
+
+    if(!step) return;
+
+    const icon =
+        step.querySelector("i");
+
+    if(state === "active"){
+
+        step.classList.add("active");
+
+        if(icon){
+
+            icon.className =
+                "fa-solid fa-circle-notch fa-spin";
+
+        }
+
+    }
+
+    if(state === "complete"){
+
+        step.classList.remove("active");
+
+        step.classList.add("complete");
+
+        if(icon){
+
+            icon.className =
+                "fa-solid fa-check";
+
+        }
+
+    }
+
+}
+
+function wait(ms){
+
+    return new Promise(resolve => {
+
+        setTimeout(resolve, ms);
+
+    });
+
+}
+
+async function downloadAsset(id){
+
+    const userId =
+        currentViewingUserId;
+
+    if(!userId){
+
+        console.error(
+            "No avatar user ID found."
+        );
+
+        return;
+
+    }
+
+    openDownloadProgress();
+
+    try{
+
+        /*
+        =====================================
+        STEP 1
+        =====================================
+        */
+
+        setDownloadStep(
+            "download-step-avatar",
+            "active"
+        );
+
+        await wait(500);
+
+        setDownloadStep(
+            "download-step-avatar",
+            "complete"
+        );
+
+
+        /*
+        =====================================
+        STEP 2
+        =====================================
+        */
+
+        setDownloadStep(
+            "download-step-assets",
+            "active"
+        );
+
+        const downloadUrl =
+            `https://riglify.onrender.com/download/${id}?userId=${userId}`;
+
+        const response =
+            await fetch(downloadUrl);
+
+        if(!response.ok){
+
             throw new Error(
                 `Download failed with status ${response.status}`
             );
+
         }
 
-        const blob = await response.blob();
+        setDownloadStep(
+            "download-step-assets",
+            "complete"
+        );
+
+
+        /*
+        =====================================
+        STEP 3
+        =====================================
+        */
+
+        setDownloadStep(
+            "download-step-files",
+            "active"
+        );
+
+        await wait(500);
+
+        setDownloadStep(
+            "download-step-files",
+            "complete"
+        );
+
+
+        /*
+        =====================================
+        STEP 4
+        =====================================
+        */
+
+        setDownloadStep(
+            "download-step-zip",
+            "active"
+        );
+
+        const blob =
+            await response.blob();
+
+        await wait(500);
+
+        setDownloadStep(
+            "download-step-zip",
+            "complete"
+        );
+
+
+        /*
+        =====================================
+        STEP 5
+        =====================================
+        */
+
+        setDownloadStep(
+            "download-step-preparing",
+            "active"
+        );
 
         const blobUrl =
             window.URL.createObjectURL(blob);
@@ -411,10 +617,11 @@ async function downloadAsset(id) {
         const link =
             document.createElement("a");
 
-        link.href = blobUrl;
+        link.href =
+            blobUrl;
 
         link.download =
-           `Riglify_${id}.zip`;
+            `Riglify_${id}.zip`;
 
         document.body.appendChild(link);
 
@@ -424,16 +631,41 @@ async function downloadAsset(id) {
 
         window.URL.revokeObjectURL(blobUrl);
 
+        setDownloadStep(
+            "download-step-preparing",
+            "complete"
+        );
+
+
+        /*
+        =====================================
+        COMPLETE
+        =====================================
+        */
+
+        const complete =
+            document.getElementById(
+                "download-complete"
+            );
+
+        if(complete){
+
+            complete.classList.add("show");
+
+        }
+
         console.log(
             "Download completed successfully."
         );
 
-    } catch (error) {
+    }catch(error){
 
         console.error(
             "Download error:",
             error
         );
+
+        closeDownloadProgress();
 
         alert(
             "The download failed. Please try again."
@@ -441,11 +673,6 @@ async function downloadAsset(id) {
 
     }
 
-}
-
-function openAvatarPopup() {
-    const overlay = document.getElementById("avatar-popup-overlay");
-    if (overlay) overlay.classList.add("active");
 }
 
 /* ==========================================================================
@@ -513,4 +740,4 @@ function closeLogoutConfirm(){
 function confirmLogout(){
     localStorage.removeItem("riglifyUser");
     window.location.reload();
-                          }
+        }
