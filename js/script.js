@@ -149,6 +149,7 @@ if(queryVal && avatarSearch){
 }
 
 let currentViewingUserId = null;
+let downloadController = null;
 
 // avatars full script
 
@@ -375,241 +376,60 @@ function closeFormatsModal(event) {
     const modalOverlay = document.getElementById("formatsModalOverlay");
     if (modalOverlay) modalOverlay.style.display = "none";
 }
-    
+
+
+
 /* ==========================================================================
-   RIGLIFY SINGLE-ITEM ZIP DOWNLOAD ENGINE
-   ========================================================================== */
-/* ==========================================================================
-   RIGLIFY DOWNLOAD PROGRESS ENGINE
+   RIGLIFY DOWNLOAD ENGINE + DOWNLOAD PROGRESS POPUP
    ========================================================================== */
 
-let downloadInProgress = false;
+async function downloadAsset(id) {
 
-function openDownloadProgress(){
+    const userId = currentViewingUserId;
 
-    const overlay =
-        document.getElementById("download-progress-overlay");
-
-    if(overlay){
-        overlay.classList.add("active");
-    }
-
-    resetDownloadSteps();
-
-}
-
-function closeDownloadProgress(){
-
-    const overlay =
-        document.getElementById("download-progress-overlay");
-
-    if(overlay){
-        overlay.classList.remove("active");
-    }
-
-}
-
-function resetDownloadSteps(){
-
-    const steps = document.querySelectorAll(".download-step");
-
-    steps.forEach(step => {
-
-        step.classList.remove("active");
-        step.classList.remove("complete");
-
-        const icon = step.querySelector("i");
-
-        if(icon){
-
-            icon.className =
-                "fa-solid fa-circle-notch";
-
-        }
-
-    });
-
-    const complete =
-        document.getElementById("download-complete");
-
-    if(complete){
-
-        complete.classList.remove("show");
-
-    }
-
-}
-
-function setDownloadStep(stepId, state){
-
-    const step =
-        document.getElementById(stepId);
-
-    if(!step) return;
-
-    const icon =
-        step.querySelector("i");
-
-    if(state === "active"){
-
-        step.classList.add("active");
-
-        if(icon){
-
-            icon.className =
-                "fa-solid fa-circle-notch fa-spin";
-
-        }
-
-    }
-
-    if(state === "complete"){
-
-        step.classList.remove("active");
-
-        step.classList.add("complete");
-
-        if(icon){
-
-            icon.className =
-                "fa-solid fa-check";
-
-        }
-
-    }
-
-}
-
-function wait(ms){
-
-    return new Promise(resolve => {
-
-        setTimeout(resolve, ms);
-
-    });
-
-}
-
-async function downloadAsset(id){
-
-    const userId =
-        currentViewingUserId;
-
-    if(!userId){
-
-        console.error(
-            "No avatar user ID found."
-        );
-
+    if (!userId) {
+        console.error("No avatar user ID found.");
         return;
-
     }
 
-    openDownloadProgress();
+    const downloadUrl =
+        `https://riglify.onrender.com/download/${id}?userId=${userId}`;
 
-    try{
+    console.log("Starting download:", downloadUrl);
 
-        /*
-        =====================================
-        STEP 1
-        =====================================
-        */
+    // OPEN DOWNLOAD POPUP
+    openDownloadPopup();
 
-        setDownloadStep(
-            "download-step-avatar",
-            "active"
-        );
+    // RESET POPUP TO PROGRESS SCREEN
+    resetDownloadPopup();
 
-        await wait(500);
+    try {
 
-        setDownloadStep(
-            "download-step-avatar",
-            "complete"
-        );
+        // STEP 1
+        checkDownloadStep(1);
 
+        // STEP 2
+        checkDownloadStep(2);
 
-        /*
-        =====================================
-        STEP 2
-        =====================================
-        */
+        downloadController = new AbortController();
 
-        setDownloadStep(
-            "download-step-assets",
-            "active"
-        );
+const response = await fetch(downloadUrl, {
+    signal: downloadController.signal
+});
 
-        const downloadUrl =
-            `https://riglify.onrender.com/download/${id}?userId=${userId}`;
-
-        const response =
-            await fetch(downloadUrl);
-
-        if(!response.ok){
-
+        if (!response.ok) {
             throw new Error(
                 `Download failed with status ${response.status}`
             );
-
         }
 
-        setDownloadStep(
-            "download-step-assets",
-            "complete"
-        );
+        // STEP 3
+        checkDownloadStep(3);
 
+        const blob = await response.blob();
 
-        /*
-        =====================================
-        STEP 3
-        =====================================
-        */
-
-        setDownloadStep(
-            "download-step-files",
-            "active"
-        );
-
-        await wait(500);
-
-        setDownloadStep(
-            "download-step-files",
-            "complete"
-        );
-
-
-        /*
-        =====================================
-        STEP 4
-        =====================================
-        */
-
-        setDownloadStep(
-            "download-step-zip",
-            "active"
-        );
-
-        const blob =
-            await response.blob();
-
-        await wait(500);
-
-        setDownloadStep(
-            "download-step-zip",
-            "complete"
-        );
-
-
-        /*
-        =====================================
-        STEP 5
-        =====================================
-        */
-
-        setDownloadStep(
-            "download-step-preparing",
-            "active"
-        );
+        // STEP 4
+        checkDownloadStep(4);
 
         const blobUrl =
             window.URL.createObjectURL(blob);
@@ -617,63 +437,234 @@ async function downloadAsset(id){
         const link =
             document.createElement("a");
 
-        link.href =
-            blobUrl;
+        link.href = blobUrl;
 
         link.download =
             `Riglify_${id}.zip`;
 
         document.body.appendChild(link);
 
+        // STEP 5
+        checkDownloadStep(5);
+
         link.click();
 
         link.remove();
 
         window.URL.revokeObjectURL(blobUrl);
+        
+        downloadController = null;
 
-        setDownloadStep(
-            "download-step-preparing",
-            "complete"
-        );
+        // SHOW SUCCESS SCREEN
+        setTimeout(() => {
+            showDownloadSuccess();
+        }, 700);
+
+        console.log("Download completed successfully.");
+
+    } catch (error) {
+
+    if (error.name === "AbortError") {
+
+        console.log("Download cancelled.");
+
+        downloadController = null;
+
+        closeDownloadPopup();
+
+        return;
+
+    }
+
+    console.error(
+        "Download error:",
+        error
+    );
+
+    downloadController = null;
+
+    showDownloadFailure(
+        error.message || "Unknown error"
+    );
+
+}
+    
+}
 
 
-        /*
-        =====================================
-        COMPLETE
-        =====================================
-        */
+/* ==========================================================================
+   DOWNLOAD POPUP FUNCTIONS
+   ========================================================================== */
 
-        const complete =
-            document.getElementById(
-                "download-complete"
-            );
+function openDownloadPopup() {
 
-        if(complete){
+    const overlay =
+        document.getElementById("download-popup-overlay");
 
-            complete.classList.add("show");
+    if (!overlay) return;
+
+    overlay.classList.add("active");
+
+}
+
+
+/* RESET POPUP */
+
+function resetDownloadPopup() {
+
+    const progressScreen =
+        document.getElementById("download-progress-screen");
+
+    const successScreen =
+        document.getElementById("download-success-screen");
+
+    const failureScreen =
+        document.getElementById("download-failure-screen");
+
+    if (progressScreen)
+        progressScreen.style.display = "block";
+
+    if (successScreen)
+        successScreen.style.display = "none";
+
+    if (failureScreen)
+        failureScreen.style.display = "none";
+
+
+    // RESET ALL CHECKLIST ITEMS
+
+    for (let i = 1; i <= 5; i++) {
+
+        const step =
+            document.getElementById(`download-step-${i}`);
+
+        if (!step) continue;
+
+        step.classList.remove("completed");
+
+        const icon =
+            step.querySelector("i");
+
+        if (icon) {
+
+            icon.className =
+                "fa-regular fa-square";
 
         }
-
-        console.log(
-            "Download completed successfully."
-        );
-
-    }catch(error){
-
-        console.error(
-            "Download error:",
-            error
-        );
-
-        closeDownloadProgress();
-
-        alert(
-            "The download failed. Please try again."
-        );
 
     }
 
 }
+
+
+/* CHECK DOWNLOAD STEP */
+
+function checkDownloadStep(stepNumber) {
+
+    const step =
+        document.getElementById(
+            `download-step-${stepNumber}`
+        );
+
+    if (!step) return;
+
+    step.classList.add("completed");
+
+    const icon =
+        step.querySelector("i");
+
+    if (icon) {
+
+        icon.className =
+            "fa-solid fa-square-check";
+
+    }
+
+}
+
+
+/* SUCCESS SCREEN */
+
+function showDownloadSuccess() {
+
+    const progressScreen =
+        document.getElementById(
+            "download-progress-screen"
+        );
+
+    const successScreen =
+        document.getElementById(
+            "download-success-screen"
+        );
+
+    if (progressScreen)
+        progressScreen.style.display = "none";
+
+    if (successScreen)
+        successScreen.style.display = "block";
+
+}
+
+
+/* FAILURE SCREEN */
+
+function showDownloadFailure(reason) {
+
+    const progressScreen =
+        document.getElementById(
+            "download-progress-screen"
+        );
+
+    const failureScreen =
+        document.getElementById(
+            "download-failure-screen"
+        );
+
+    const errorReason =
+        document.getElementById(
+            "download-error-reason"
+        );
+
+    if (progressScreen)
+        progressScreen.style.display = "none";
+
+    if (failureScreen)
+        failureScreen.style.display = "block";
+
+    if (errorReason)
+        errorReason.textContent = reason;
+
+}
+
+
+/* CLOSE DOWNLOAD POPUP */
+
+function closeDownloadPopup() {
+
+    const overlay =
+        document.getElementById(
+            "download-popup-overlay"
+        );
+
+    if (!overlay) return;
+
+    overlay.classList.remove("active");
+
+}
+
+/* Download Cancel button and extra stuff ig! */
+
+function cancelDownload() {
+
+    if (downloadController) {
+        downloadController.abort();
+    }
+
+    closeDownloadPopup();
+
+}
+
+
 
 /* ==========================================================================
    CUSTOM VIDEO TUTORIAL PLAYER ENGINE
@@ -740,4 +731,4 @@ function closeLogoutConfirm(){
 function confirmLogout(){
     localStorage.removeItem("riglifyUser");
     window.location.reload();
-        }
+                          }
