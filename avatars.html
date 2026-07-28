@@ -304,6 +304,113 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
 </div>
     
+    
+    <!-- DOWNLOAD POPUP -->
+
+<div id="download-popup-overlay" class="download-popup-overlay">
+
+    <div id="download-popup" class="download-popup">
+
+        <!-- PROGRESS -->
+
+        <div id="download-progress-screen">
+
+            <div class="download-popup-icon">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+            </div>
+
+            <h2>Downloading...</h2>
+
+            <p class="download-popup-subtitle">
+                Riglify is preparing your download.
+            </p>
+
+            <div class="download-checklist">
+
+                <div class="download-step" id="download-step-1">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Fetching avatar data...</span>
+                </div>
+
+                <div class="download-step" id="download-step-2">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Fetching Roblox assets...</span>
+                </div>
+
+                <div class="download-step" id="download-step-3">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Generating files...</span>
+                </div>
+
+                <div class="download-step" id="download-step-4">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Creating ZIP file...</span>
+                </div>
+
+                <div class="download-step" id="download-step-5">
+                    <i class="fa-regular fa-square"></i>
+                    <span>Preparing your download...</span>
+                </div>
+
+            </div>
+            
+            <p class="download-progress-note">
+    Once these are all checked, your file should be successfully downloaded!
+</p>
+
+<button
+    class="download-popup-cancel"
+    onclick="cancelDownload()"
+>
+    Cancel Download
+</button>
+
+        </div>
+
+        <!-- SUCCESS -->
+
+        <div id="download-success-screen" style="display:none;">
+
+            <div class="download-popup-icon success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <h2>Download successful!</h2>
+
+            <p>Your ZIP file has been downloaded successfully.</p>
+
+            <button class="download-popup-close"
+                onclick="closeDownloadPopup()">
+                Close
+            </button>
+
+        </div>
+
+        <!-- FAILURE -->
+
+        <div id="download-failure-screen" style="display:none;">
+
+            <div class="download-popup-icon failure-icon">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+
+            <h2>Download failed</h2>
+
+            <p id="download-error-reason">
+                Unknown error.
+            </p>
+
+            <button class="download-popup-close"
+                onclick="closeDownloadPopup()">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+    
 
 <!-- FOOTER -->
 
@@ -449,4 +556,4 @@ btn2d.addEventListener('click', () => {
 });
     </script>
     </body>
-    </html>
+</html>
