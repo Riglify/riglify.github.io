@@ -172,13 +172,47 @@ async function searchAvatar(){
             </p>
         `;
     }
+    
+    /* Show a message if importing takes longer than 5 seconds */
+const loadingTimer = setTimeout(() => {
+
+    if (!content) return;
+
+    const loadingMessage =
+        document.getElementById("slow-import-message");
+
+    if (!loadingMessage) {
+
+        content.innerHTML += `
+            <p
+                id="slow-import-message"
+                style="
+                    color:#9ca3af;
+                    text-align:center;
+                    margin-top:16px;
+                    font-size:14px;
+                    line-height:1.5;
+                "
+            >
+                ⏳ This import is taking a little longer than usual.<br>
+                Roblox's API may take around
+                <strong>3–15 seconds</strong> to respond.
+            </p>
+        `;
+
+    }
+
+}, 5000);
 
     try{
         const res = await fetch(`https://riglify.onrender.com/avatar/${username}`);
 const data = await res.json();
 
 if(!data.success){
-            if (content) {
+
+    clearTimeout(loadingTimer);
+
+    if (content) {
                 content.innerHTML = `
                     <p style="color:red;" align="center">
                         <i class="fa-solid fa-x" style="color: rgb(255, 0, 0);"></i> User not found. Please try again.
@@ -188,7 +222,9 @@ if(!data.success){
             return;
         }
         
-        currentViewingUserId = data.userId;
+        clearTimeout(loadingTimer);
+
+currentViewingUserId = data.userId;
 
         if (content) {
             content.innerHTML = `
@@ -320,6 +356,7 @@ if(!data.success){
         }, 50);
 
     } catch(err) {
+        clearTimeout(loadingTimer);
         console.log(err);
         if (content) {
             content.innerHTML = `
@@ -404,6 +441,8 @@ async function downloadAsset(id) {
     resetDownloadPopup();
 
     try {
+        
+        
 
         // STEP 1
         checkDownloadStep(1);
