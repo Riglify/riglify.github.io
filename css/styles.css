@@ -1,5 +1,5 @@
 /* RIGLIFY STYLES - COPYRIGHT 2026 BY NOTHINGBUTTYLER. ALL RIGHTS RESERVED. */
- 
+
 *{
     margin:0;
     padding:0;
@@ -2083,3 +2083,134 @@ model-viewer:active {
     background:#3b404b;
 }
 
+#backend-announcement {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    background: #3a2200;
+    border-bottom: 1px solid #8a5700;
+}
+
+.backend-announcement-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fbbf24;
+}
+
+.backend-announcement-content i {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.backend-announcement-content strong {
+    display: block;
+    color: #fbbf24;
+    font-size: 15px;
+}
+
+.backend-announcement-content p {
+    margin: 3px 0 0;
+    color: #d1d5db;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   RIGLIFY 404 PAGE BUTTONS
+   ========================================================= */
+
+.error-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-top: 24px;
+
+}
+
+
+.error-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    min-width: 170px;
+
+    padding: 12px 18px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+
+}
+
+
+.error-btn:hover {
+
+    transform: translateY(-2px);
+
+    opacity: 0.9;
+
+}
+
+
+.error-btn.primary {
+
+    background: #ffffff;
+
+    color: #111827;
+
+}
+
+
+.error-btn.secondary {
+
+    background: #5865F2;
+
+    color: #ffffff;
+
+}
+
+
+@media (max-width: 500px) {
+
+    .error-actions {
+
+        flex-direction: column;
+
+        width: 100%;
+
+    }
+
+    .error-btn {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+    }
+
+}
