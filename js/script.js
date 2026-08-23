@@ -154,7 +154,7 @@ let downloadController = null;
 // avatars full script
 
 /* SEARCH */
-async function searchAvatar(){
+window.searchAvatar = async function(){
     const avatarInput = document.getElementById("avatarInput");
     if (!avatarInput) return;
     
@@ -194,9 +194,11 @@ const loadingTimer = setTimeout(() => {
                     line-height:1.5;
                 "
             >
-                ⏳ This import is taking a little longer than usual.<br>
+                <i class="fa-solid fa-hourglass-half"></i> This import is taking a little longer than usual.<br>
                 Roblox's API may take around
                 <strong>3–15 seconds</strong> to respond.
+        <br />
+        <i class="fa-solid fa-wifi"></i> If your Wi-Fi is bad, the wait may be a bit <strong>longer</strong>.
             </p>
         `;
 
@@ -363,6 +365,10 @@ currentViewingUserId = data.userId;
                 <p style="color:red;" align="center">
                     <i class="fa-solid fa-face-sad-cry" style="color: rgb(255, 0, 0);"></i> Failed to import avatar!
                 </p>
+            <p>
+            This probably happened because:
+            <li>
+            </p>
             `;
         }
     }
@@ -771,3 +777,4 @@ function confirmLogout(){
     localStorage.removeItem("riglifyUser");
     window.location.reload();
                           }
+
