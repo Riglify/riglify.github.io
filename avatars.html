@@ -60,6 +60,7 @@
         <!-- CONTENT -->
 
         <div class="auth-content">
+            
 
             <!-- LOGO -->
 
@@ -74,6 +75,12 @@
                 Connect your account to save imports,
                 access cloud features, and manage assets.
             </p>
+            
+<!-- >>>>>> -->           <div style="background-color: yellow;color: black;text-align: center;">
+                <p style="color: black;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <b>NOTE:</b>
+                    Account connecting is in progress as well. This will be worked on after the avatar importer. The login links work but the dashboard and other pages are unavailable at this time.</p>
+            </div>
 
             <!-- BUTTONS -->
 
@@ -92,7 +99,7 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
                 </button>
 
-                <!-- ROBLOX -->
+                <!-- github -->
 
                 <button class="roblox-btn" onclick="window.location.href='https://riglify.onrender.com/auth/github'">
 
@@ -203,6 +210,50 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 </div>
 
 </nav>
+    
+    <div id="operational-announcement" style="display:none;">
+    <div class="announcement-content">
+        <i class="fa-solid fa-circle-check"></i>
+
+        <div>
+            <strong>All Systems Operational</strong>
+            <p>
+                Riglify is currently operating normally!
+            </p>
+        </div>
+    </div>
+</div>
+    
+    
+    <div id="backend-announcement" style="-;">
+    <div class="backend-announcement-content">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+
+        <div>
+            <strong>Riglify is temporarily unavailable</strong>
+            <p>
+                Our backend service is temporarily suspended.
+                Some Riglify features may not work until the service is back online.
+                For support, please join our Discord server or Telegram channel.
+                Thank you for your patience!
+            </p>
+        </div>
+    </div>
+</div>
+    
+    
+    <div id="backend-announcement">
+    <div class="backend-announcement-content">
+        <i class="fa-solid fa-hammer"></i>
+
+        <div>
+            <strong>This project is still in development!</strong>
+            <p>
+                Welcome to Riglify! I am still working on the avatar importer, but don't worry, I feel like I am getting really close to finishing. Please stay tuned by joining the official Discord server or Telegram channel in the footer below! :)
+            </p>
+        </div>
+    </div>
+</div>
     
 
 <!-- HERO -->
@@ -517,13 +568,19 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
 </footer>
 
-<script src="file:///storage/emulated/0/Download/Coding%20Testing/js/riglify-script.js"></script>
+    <!-- scripts -->
+    <!-- ------------------------- MAIN --------------------------- -->
 <script src="/js/script.js"></script>
+<script src="https://github.com/Riglify/backend/raw/refs/heads/main/server.js"></script>
+    <!-- ------------------------- WEBCODE MOBILE DIRECTORIES --------------------------- -->  
+<script src="file:///storage/emulated/0/Download/Coding%20Testing/js/riglify-script.js"></script>
+<script src="file:///storage/emulated/0/Download/Riglify/server.js"></script>
+<!-- ------------------------- PHOENIX CODE (PC) --------------------------- -->  
+<script src="http://localhost:55866/riglify.github.io-main/js/script.js"></script>
+<!-- ------------------------- STATUS PAGE --------------------------- -->  
+<script src="https://riglify.statuspage.io/embed/script.js"></script>    
     
-<!-- Phoenix Code (PC) -->
-    <script src="http://localhost:55866/riglify.github.io-main/js/script.js"></script>
-    
-    
+  <!-- ------------------------- OTHER --------------------------- -->    
     <!-- Import the component library for 3D rendering -->
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <script>
@@ -556,4 +613,4 @@ btn2d.addEventListener('click', () => {
 });
     </script>
     </body>
-</html>
+    </html>
