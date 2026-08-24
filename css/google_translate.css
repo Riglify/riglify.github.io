@@ -1,0 +1,771 @@
+/* RIGLIFY STYLES - COPYRIGHT 2026 BY NOTHINGBUTTYLER. ALL RIGHTS RESERVED. */
+
+/* MAIN */
+
+/* ---------------------------------------------------------
+   FLOATING BUTTON
+   --------------------------------------------------------- */
+
+#riglify-translate-button {
+
+    position: fixed;
+
+    right: 24px;
+    bottom: 24px;
+
+    width: 68px;
+    height: 68px;
+
+    border-radius: 50%;
+
+    border: 3px solid white;
+
+    background: #39ff14;
+
+    color: black;
+
+    font-size: 29px;
+
+    cursor: pointer;
+
+    z-index: 99998;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.45);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+#riglify-translate-button:hover {
+
+    transform:
+        scale(1.08)
+        rotate(4deg);
+
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.6);
+
+}
+
+
+#riglify-translate-button:active {
+
+    transform:
+        scale(.92);
+
+}
+
+
+/* ---------------------------------------------------------
+   TRANSLATE PANEL
+   --------------------------------------------------------- */
+
+#riglify-translate-panel {
+
+    position: fixed;
+
+    right: 24px;
+    bottom: 105px;
+
+    width: 420px;
+    max-width: calc(100vw - 30px);
+
+    background:
+        linear-gradient(
+            145deg,
+            #711cff,
+            #4800d9
+        );
+
+    border-radius: 25px;
+
+    padding: 0;
+
+    color: white;
+
+    z-index: 99997;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(35px)
+        scale(.85)
+        rotate(2deg);
+
+    transform-origin:
+        bottom right;
+
+    transition:
+
+        opacity .3s ease,
+
+        visibility .3s ease,
+
+        transform .45s
+        cubic-bezier(.17,.67,.32,1.35);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.55);
+
+    overflow: hidden;
+
+}
+
+
+#riglify-translate-panel.translate-panel-open {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1)
+        rotate(0);
+
+}
+
+
+/* ---------------------------------------------------------
+   HEADER
+   --------------------------------------------------------- */
+
+.translate-panel-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 22px 24px;
+
+    border-bottom:
+        3px solid
+        rgba(255,255,255,.8);
+
+}
+
+
+.translate-panel-header > div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+}
+
+
+.translate-panel-header i {
+
+    font-size: 27px;
+
+}
+
+
+.translate-close {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border: 2px solid white;
+
+    background:
+        rgba(255,255,255,.12);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+
+}
+
+
+.translate-close:hover {
+
+    transform:
+        rotate(90deg)
+        scale(1.1);
+
+    background:
+        rgba(255,255,255,.25);
+
+}
+
+
+/* ---------------------------------------------------------
+   BODY
+   --------------------------------------------------------- */
+
+.translate-panel-body {
+
+    padding: 20px 22px 24px;
+
+}
+
+
+.translate-description {
+
+    margin: 0 0 20px;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    color:
+        rgba(255,255,255,.9);
+
+}
+
+
+/* ---------------------------------------------------------
+   LANGUAGE GRID
+   --------------------------------------------------------- */
+
+.translate-language-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+}
+
+
+.translate-language {
+
+    min-height: 72px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    border-radius: 15px;
+
+    border: 2px solid
+        rgba(255,255,255,.85);
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition:
+
+        transform .22s ease,
+
+        background .22s ease,
+
+        box-shadow .22s ease;
+
+}
+
+
+.translate-language:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+
+    background:
+        rgba(255,255,255,.18);
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,.25);
+
+}
+
+
+.translate-language:active {
+
+    transform:
+        scale(.95);
+
+}
+
+
+.active-language {
+
+    background:
+        rgba(255,255,255,.2);
+
+}
+
+
+.language-flag {
+
+    font-size: 28px;
+
+}
+
+
+.language-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+}
+
+
+.language-info strong {
+
+    font-size: 15px;
+
+}
+
+
+.language-info small {
+
+    font-size: 11px;
+
+    opacity: .75;
+
+}
+
+
+/* ---------------------------------------------------------
+   GOOGLE TRANSLATE HIDDEN UI
+   --------------------------------------------------------- */
+
+#google_translate_element {
+
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+}
+
+
+/* ---------------------------------------------------------
+   TRANSLATING POPUP
+   --------------------------------------------------------- */
+
+#riglify-translation-loading {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(0,0,0,.72);
+
+    backdrop-filter:
+        blur(10px);
+
+    z-index: 100000;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
+
+}
+
+
+#riglify-translation-loading.translation-loading-visible {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+
+
+.translation-loading-box {
+
+    position: relative;
+
+    width: 340px;
+
+    max-width:
+        calc(100vw - 40px);
+
+    padding: 40px 25px;
+
+    text-align: center;
+
+    border-radius: 22px;
+
+    background:
+        #11141c;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.6);
+
+    animation:
+        translatePopupIn
+        .45s
+        cubic-bezier(.17,.67,.32,1.35);
+
+}
+
+
+.translation-loading-box > i {
+
+    font-size: 42px;
+
+    color: #8b5cf6;
+
+    margin-bottom: 18px;
+
+}
+
+
+.translation-loading-box h2 {
+
+    margin: 0 0 8px;
+
+    font-size: 24px;
+
+}
+
+
+.translation-loading-box p {
+
+    margin: 0;
+
+    color: #9ca3af;
+
+}
+
+
+.translation-loading-close {
+
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+/* ---------------------------------------------------------
+   SUCCESS NOTIFICATION
+   --------------------------------------------------------- */
+
+#riglify-translation-notification {
+
+    position: fixed;
+
+    left: 20px;
+
+    bottom: 20px;
+
+    width: 330px;
+
+    max-width:
+        calc(100vw - 40px);
+
+    padding:
+        17px 45px 17px 18px;
+
+    background:
+        rgba(17,20,28,.96);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    border-left:
+        4px solid
+        #39ff14;
+
+    border-radius: 14px;
+
+    color: white;
+
+    z-index: 100001;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateX(-35px)
+        scale(.92);
+
+    transition:
+
+        opacity .35s ease,
+
+        visibility .35s ease,
+
+        transform .45s
+        cubic-bezier(.17,.67,.32,1.35);
+
+    box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.45);
+
+}
+
+
+#riglify-translation-notification.translation-notification-visible {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateX(0)
+        scale(1);
+
+}
+
+
+.translation-notification-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+}
+
+
+.translation-notification-title i {
+
+    color:
+        #39ff14;
+
+}
+
+
+.translated-success-text {
+
+    margin-top: 8px;
+
+    color:
+        #c4b5fd;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+.translation-notification-close {
+
+    position: absolute;
+
+    top: 9px;
+    right: 9px;
+
+    width: 27px;
+    height: 27px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color: #aaa;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        color .2s ease;
+
+}
+
+
+.translation-notification-close:hover {
+
+    color: white;
+
+    transform:
+        rotate(90deg);
+
+}
+
+
+/* ---------------------------------------------------------
+   ANIMATIONS
+   --------------------------------------------------------- */
+
+@keyframes translatePopupIn {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(.8)
+            rotate(-2deg);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1)
+            rotate(0);
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+    #riglify-translate-button {
+
+        width: 60px;
+        height: 60px;
+
+        right: 16px;
+        bottom: 16px;
+
+    }
+
+
+    #riglify-translate-panel {
+
+        right: 12px;
+        bottom: 90px;
+
+        width:
+            calc(100vw - 24px);
+
+    }
+
+
+    .translate-panel-header > div {
+
+        font-size: 25px;
+
+    }
+
+
+    .translate-language-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+/* hide Google translate ui */
+/* =========================================================
+   HIDE GOOGLE TRANSLATE UI
+   Keeps translations working, removes Google's bars/popups.
+   ========================================================= */
+
+/* Top "Translated to..." toolbar */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+/* Google Translate floating feedback popup */
+.goog-te-balloon-frame {
+    display: none !important;
+}
+
+/* Prevent Google from pushing the entire page downward */
+body {
+    top: 0 !important;
+}
+
+/* Google Translate injected top spacing */
+html {
+    margin-top: 0 !important;
+}
+
+/* Hide Google's injected feedback/tooltip elements */
+iframe.goog-te-banner-frame,
+iframe.goog-te-balloon-frame {
+    display: none !important;
+}
+
+/* Hide Google Translate's little floating elements */
+.goog-te-spinner-pos {
+    display: none !important;
+}
