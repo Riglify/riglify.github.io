@@ -769,3 +769,12 @@ iframe.goog-te-balloon-frame {
 .goog-te-spinner-pos {
     display: none !important;
 }
+
+/* language flag */
+.language-flag {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
