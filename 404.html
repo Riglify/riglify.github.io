@@ -361,6 +361,221 @@ onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
 
 </footer>
 
+
+    <!-- =========================================================
+     RIGLIFY TRANSLATE BUTTON
+     ========================================================= -->
+
+<div id="riglify-translate-wrapper">
+
+    <!-- FLOATING TRANSLATE BUTTON -->
+    <button
+        id="riglify-translate-button"
+        aria-label="Translate"
+        onclick="toggleRiglifyTranslate()"
+    >
+        <i class="fa-solid fa-language"></i>
+    </button>
+
+
+    <!-- TRANSLATE PANEL -->
+    <div id="riglify-translate-panel">
+
+        <div class="translate-panel-header">
+            <div>
+                <i class="fa-solid fa-language"></i>
+                <span>Translate</span>
+            </div>
+
+            <button
+                class="translate-close"
+                onclick="closeRiglifyTranslate()"
+                aria-label="Close"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+
+        <div class="translate-panel-body">
+
+            <p class="translate-description">
+                Select a language to translate the entire site below.
+            </p>
+
+
+            <!-- GOOGLE TRANSLATE -->
+            <div id="google_translate_element"></div>
+
+
+            <!-- LANGUAGE BUTTONS -->
+            <div class="translate-language-grid">
+
+                <button
+                    class="translate-language active-language"
+                    onclick="translateRiglify('en')"
+                >
+                    <span class="language-info">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1fa-1f1f8.png"
+    class="language-flag"
+    alt="United States"
+                        >
+                    </span>
+
+                    <span class="language-info">
+                        <strong>English</strong>
+                        <small>US / Default</small>
+                    </span>
+                </button>
+
+
+                <button
+                    class="translate-language"
+                    onclick="translateRiglify('pt')"
+                >
+                    <span class="language-flag">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1e7-1f1f7.png"
+    class="language-flag"
+    alt="Brazil"
+>
+                    </span>
+
+                    <span class="language-info">
+                        <strong>Português</strong>
+                        <small>Brazil</small>
+                    </span>
+                </button>
+
+
+                <button
+                    class="translate-language"
+                    onclick="translateRiglify('fil')"
+                >
+                    <span class="language-flag">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1f5-1f1ed.png"
+    class="language-flag"
+    alt="Philippines"
+>
+                    </span>
+
+                    <span class="language-info">
+                        <strong>Filipino</strong>
+                        <small>Philippines</small>
+                    </span>
+                </button>
+
+
+                <button
+                    class="translate-language"
+                    onclick="translateRiglify('uk')"
+                >
+                    <span class="language-flag">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1fa-1f1e6.png"
+    class="language-flag"
+    alt="Ukraine"
+>
+                    </span>
+
+                    <span class="language-info">
+                        <strong>Українська</strong>
+                        <small>Ukraine</small>
+                    </span>
+                </button>
+
+
+                <button
+                    class="translate-language"
+                    onclick="translateRiglify('id')"
+                >
+                    <span class="language-flag">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1ee-1f1e9.png"
+    class="language-flag"
+    alt="Indonesia"
+>
+                    </span>
+
+                    <span class="language-info">
+                        <strong>Indonesian</strong>
+                        <small>Indonesia</small>
+                    </span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TRANSLATION SUCCESS NOTIFICATION
+     ========================================================= -->
+
+<div id="riglify-translation-notification">
+
+    <button
+        class="translation-notification-close"
+        onclick="closeTranslationNotification()"
+    >
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="translation-notification-title">
+        <i class="fa-solid fa-circle-check"></i>
+
+        <span>Successfully translated!</span>
+    </div>
+
+    <div
+        id="translated-success-text"
+        class="translated-success-text"
+    ></div>
+
+</div>
+
+
+<!-- =========================================================
+     TRANSLATION LOADING POPUP
+     ========================================================= -->
+
+<div id="riglify-translation-loading">
+
+    <div class="translation-loading-box">
+
+        <button
+            class="translation-loading-close"
+            onclick="closeTranslationLoading()"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <i class="fa-solid fa-spin fa-spin fa-xl"></i>
+
+        <h2>Translating...</h2>
+
+        <p>
+            Please wait while Riglify translates the site.
+        </p>
+
+    </div>
+
+</div>
+
+    <script
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
+    
+        <link rel="stylesheet" href="/css/google_translate.css" />
+    <script src="/js/google_translate.js"></script>
+    
+
     <!-- scripts -->
     <!-- ------------------------- MAIN --------------------------- -->
 <script src="/js/script.js"></script>
