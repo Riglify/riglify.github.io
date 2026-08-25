@@ -367,7 +367,16 @@ currentViewingUserId = data.userId;
                 </p>
             <p>
             This probably happened because:
-            <li>
+            <br />
+            
+            <li>Your internet is too slow for the backend to load.</li>
+            <li>We weren't able to import your avatar in time.</li>
+            <li>(<b>MOST LIKELY</b>): Our backend is temporarily down due to an issue.</li>
+            
+            <br />
+            Please try again, and if you see this popup again, please join our Discord server or Telegram channel for support (located in the footer).
+            <br />
+            Thank you!
             </p>
             `;
         }
@@ -777,4 +786,6 @@ function confirmLogout(){
     localStorage.removeItem("riglifyUser");
     window.location.reload();
                           }
+
+
 
