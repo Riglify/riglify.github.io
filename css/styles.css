@@ -2214,3 +2214,199 @@ model-viewer:active {
     }
 
 }
+
+
+/* =========================================================
+   RIGLIFY - COMING SOON PAGE
+   ========================================================= */
+
+.coming-soon-page {
+    min-height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+}
+
+.coming-soon {
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+}
+
+.coming-soon-icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 24px;
+
+    background: rgba(255, 193, 7, 0.12);
+    border: 1px solid rgba(255, 193, 7, 0.25);
+
+    color: #ffc107;
+
+    font-size: 38px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.25),
+        0 0 35px rgba(255, 193, 7, 0.08);
+
+    animation: comingSoonFloat 3s ease-in-out infinite;
+}
+
+.coming-soon h2 {
+    margin: 0;
+
+    font-size: clamp(38px, 7vw, 64px);
+    font-weight: 800;
+
+    letter-spacing: -2px;
+
+    color: #ffffff;
+}
+
+.coming-soon h2 span {
+    color: #ffc107;
+}
+
+.coming-soon > p {
+    max-width: 580px;
+    margin: 18px auto 0;
+
+    color: #9ca3af;
+
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.coming-soon > p + p {
+    margin-top: 8px;
+}
+
+
+/* BUTTONS */
+
+.coming-soon-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 30px;
+
+    flex-wrap: wrap;
+}
+
+.coming-soon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    padding: 12px 20px;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #0b0d12;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.coming-soon-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.3);
+
+    opacity: 0.9;
+}
+
+.coming-soon-btn:active {
+    transform: translateY(0);
+}
+
+
+/* SECONDARY BUTTON */
+
+.coming-soon-btn.secondary {
+    background: #5865f2;
+    color: #ffffff;
+}
+
+.coming-soon-btn.secondary:hover {
+    box-shadow:
+        0 8px 25px rgba(88, 101, 242, 0.25);
+}
+
+
+/* FLOATING ICON */
+
+@keyframes comingSoonFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .coming-soon-page {
+        min-height: 60vh;
+        padding: 60px 18px;
+    }
+
+    .coming-soon-icon {
+        width: 75px;
+        height: 75px;
+
+        font-size: 30px;
+
+        border-radius: 20px;
+    }
+
+    .coming-soon h2 {
+        font-size: 42px;
+        letter-spacing: -1.5px;
+    }
+
+    .coming-soon > p {
+        font-size: 14px;
+    }
+
+    .coming-soon-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .coming-soon-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+
+}
+
+
+
