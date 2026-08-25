@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Coming Soon! | Riglify</title>
+    
+<link rel="stylesheet" href="file:///storage/emulated/0/Download/Coding%20Testing/css/riglify-styles.css" />
+<link rel="stylesheet" href="/css/styles.css" />
+    
+<!-- Phoenix Code (PC) -->
+<link rel="stylesheet" href="http://localhost:55866/riglify.github.io-main/css/styles.css" />
+    
+    
+<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+<link rel="shortcut icon" href="/favicons/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Riglify" />
+<link rel="manifest" href="/favicons/site.webmanifest" />
+    
+    
+<meta property="og:title" content="Coming Soon! | Riglify">
+<meta property="og:description" content="The page you tried to access is unavailable, and is coming soon! Stay tuned!"> <!-- default: Riglify is a simple working Roblox asset & avatar importer. -->
+<meta property="og:image" content="https://riglify.github.io/favicons/logo_main.png">
+<meta property="og:url" content="https://riglify.github.io">
+<meta name="theme-color" content="#0b0d12">
+    
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Coming Soon! | Riglify">
+<meta name="twitter:description" content="The page you tried to access is unavailable, and is coming soon! Stay tuned!">
+<meta name="twitter:image" content="https://riglify.github.io/favicons/logo_main.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/filesaver.js/2.0.5/FileSaver.min.js"></script>
+    
+</head>
+<body>
+    
+    <!-- AUTH MODAL -->
+
+<div id="auth-overlay">
+
+    <div id="auth-box">
+
+        <!-- CLOSE -->
+
+        <button id="auth-close" onclick="closeAuth()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- CONTENT -->
+
+        <div class="auth-content">
+            
+
+            <!-- LOGO -->
+
+            <img
+                src="https://riglify.github.io/favicons/logo_main.png"
+                class="auth-logo"
+            >
+
+            <h1>Welcome to Riglify</h1>
+
+            <p>
+                Connect your account to save imports,
+                access cloud features, and manage assets.
+            </p>
+            
+<!-- >>>>>> -->           <div style="background-color: yellow;color: black;text-align: center;">
+                <p style="color: black;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> <b>NOTE:</b>
+                    Account connecting is in progress as well. This will be worked on after the avatar importer. The login links work but the dashboard and other pages are unavailable at this time.</p>
+            </div>
+
+            <!-- BUTTONS -->
+
+            <div class="auth-buttons">
+
+                <!-- DISCORD -->
+
+                <button
+class="discord-btn"
+onclick="window.location.href='https://riglify.onrender.com/auth/discord'"
+>
+
+                    <i class="fa-brands fa-discord"></i>
+
+                    Continue with Discord
+
+                </button>
+
+                <!-- github -->
+
+                <button class="roblox-btn" onclick="window.location.href='https://riglify.onrender.com/auth/github'">
+
+                    <i class="fa-brands fa-github"></i>
+
+                    Continue with GitHub
+
+                </button>
+                
+
+            </div>
+
+            <!-- TERMS -->
+
+            <span class="auth-terms">
+
+                By continuing, you agree to the
+                Terms of Service and Privacy Policy.
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <!-- LEFT -->
+
+    <div class="left-nav">
+
+        <!-- SIDEBAR BUTTON -->
+
+        <button class="menu-btn" onclick="openSidebar()">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+        <!-- LOGO -->
+
+        <div class="logo">
+            <img src="https://riglify.github.io/favicons/logo_main.png">
+        </div>
+
+        <!-- BRAND -->
+
+        <div class="brand">
+            <h1>Riglify</h1>
+            <p class="brand-subtitle">
+                Roblox asset & avatar importer
+            </p>
+        </div>
+
+    </div>
+
+    <!-- MOBILE SIDEBAR -->
+
+<div id="mobile-sidebar">
+
+    <div class="sidebar-top">
+
+        <a href="/"><h2>Riglify</h2></a>
+
+        <button onclick="closeSidebar()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+    <a href="/avatars">Avatars</a>
+    <a href="/bundles">Bundles</a>
+    <a href="/models">Models</a>
+    <a href="/items">Items</a>
+
+</div>
+
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- CENTER -->
+
+    <div class="nav-center">
+
+        <a href="/avatars">Avatars</a>
+        <a href="/bundles">Bundles</a>
+        <a href="/models">Models</a>
+        <a href="/items">Items</a>
+
+    </div>
+
+    <!-- RIGHT -->
+ <div class="nav-right">
+
+    <div class="account-wrapper" id="account-wrapper">
+
+        <button
+            class="account-btn"
+            id="login-btn"
+            onclick="openAuth()"
+        >
+            <i class="fa-solid fa-user-plus"></i>
+        </button>
+
+    </div>
+
+</div>
+
+</nav>
+    
+
+<!-- HERO -->
+
+    <!--<section class="hero">
+
+    <h2>
+    Coming
+    <span>Soon</span>!
+</h2>
+
+    <p>
+        Sorry friend, but you might've came across a page that's no longer available, it expired, or just doesn't exist at all.
+        <br><br>
+        But hey, while you're here, you can report it to us, or explore Riglify!
+    </p>
+    
+    
+       <!-- 404 ACTION BUTTONS --
+
+    <div class="error-actions">
+
+        <a
+            href="/"
+            class="error-btn primary"
+        >
+            <i class="fa-solid fa-house"></i>
+            Back to Riglify
+        </a>
+
+        <a
+            href="https://discord.gg/tUyzjXvU5f"
+            class="error-btn secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <i class="fa-brands fa-discord"></i>
+            Get Support
+        </a>
+
+    </div>
+    
+    
+</section>-->
+    
+    
+    <!-- COMING SOON -->
+
+    <main class="coming-soon-page">
+
+        <section class="coming-soon">
+
+            <div class="coming-soon-icon">
+                <i class="fa-solid fa-hammer"></i>
+            </div>
+
+            <h2>
+                Coming <span>Soon</span>
+            </h2>
+
+            <p>
+                This Riglify feature isn't available just yet.
+            </p>
+
+            <p>
+                We're still working on it and hope to have it
+                available soon. Stay tuned!
+            </p>
+
+            <div class="coming-soon-actions">
+
+                <a href="/" class="coming-soon-btn">
+                    <i class="fa-solid fa-house"></i>
+                    Back To Riglify
+                </a>
+
+                <a
+                    href="https://discord.gg/tUyzjXvU5f"
+                    class="coming-soon-btn secondary"
+                >
+                    <i class="fa-brands fa-discord"></i>
+                    Join Discord Server
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+    
+
+<!-- FOOTER -->
+
+<!-- REPLACE YOUR FOOTER WITH THIS -->
+
+<footer class="footer">
+
+    <div class="footer-top">
+
+        <!-- BRAND -->
+
+        <div class="footer-brand">
+
+            <div class="footer-logo">
+    <img src="https://riglify.github.io/favicons/logo_main.png">
+</div>
+
+            <div>
+                <h3>Riglify</h3>
+
+                <p>
+                    Modern Roblox importing tools
+                    for Prisma3D creators.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- LINKS -->
+
+        <div class="footer-links">
+
+            <div class="footer-column">
+
+                <h4>Platform</h4>
+
+                <a href="/">Home</a>
+                <a href="/tutorials">Tutorials</a>
+                <a href="/tools">Import Tools</a>
+                <a href="/updates">Updates</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h4>Legal</h4>
+
+                <a href="/policy">Privacy Policy</a>
+                <a href="/tos">Terms of Service</a>
+                <a href="/disclaimer">Disclaimer</a>
+
+            </div>
+
+            <div class="footer-column">
+
+                <h4>Community</h4>
+
+                <a href="https://discord.gg/tUyzjXvU5f">Discord</a>
+                <a href="https://github.com/Riglify">GitHub</a>
+                <a href="https://youtube.com/@NothingButTyler">YouTube</a>
+                <a href="https://t.me/riglify">Telegram</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SOCIALS -->
+
+    <div class="footer-socials">
+
+        <a href="https://discord.gg/tUyzjXvU5f">
+            <i class="fa-brands fa-discord"></i>
+        </a>
+
+        <a href="https://github.com/Riglify">
+            <i class="fa-brands fa-github"></i>
+        </a>
+
+        <a href="https://youtube.com/@NothingButTyler">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+        
+        <a href="https://t.me/riglify">
+            <i class="fa-brands fa-telegram"></i>
+        </a>
+
+    </div>
+
+    <!-- BOTTOM -->
+
+    <div class="footer-bottom">
+
+        <p>
+            Made for Roblox animators & creators with passion.
+        </p>
+
+        <p>
+            © 2026 Riglify. Not affiliated with Roblox Corporation or Prisma3D.
+        </p>
+
+    </div>
+
+</footer>
+    
+<!-- =========================================================
+     RIGLIFY TRANSLATE BUTTON
+     ========================================================= -->
+
+<div id="riglify-translate-wrapper">
+
+    <!-- FLOATING TRANSLATE BUTTON -->
+    <button
+        id="riglify-translate-button"
+        aria-label="Translate"
+        onclick="toggleRiglifyTranslate()"
+    >
+        <i class="fa-solid fa-language"></i>
+    </button>
+
+
+    <!-- TRANSLATE PANEL -->
+    <div id="riglify-translate-panel">
+
+        <div class="translate-panel-header">
+            <div>
+                <i class="fa-solid fa-language"></i>
+                <span>Translate</span>
+            </div>
+
+            <button
+                class="translate-close"
+                onclick="closeRiglifyTranslate()"
+                aria-label="Close"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+
+        <div class="translate-panel-body">
+
+            <p class="translate-description">
+                Select a language to translate the entire site below.
+            </p>
+
+
+            <!-- GOOGLE TRANSLATE -->
+            <div id="google_translate_element"></div>
+
+
+            <!-- LANGUAGE BUTTONS -->
+            <div class="translate-language-grid">
+
+                <button
+                    class="translate-language active-language"
+                    onclick="translateRiglify('en')"
+                >
+                    <span class="language-info">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1fa-1f1f8.png"
+    class="language-flag"
+    alt="United States"
+                        >
+                    </span>
+
+                    <span class="language-info">
+                        <strong>English</strong>
+                        <small>US / Default</small>
+                    </span>
+                </button>
+
+
+                <button
+                    class="translate-language"
+                    onclick="translateRiglify('pt')"
+                >
+                    <span class="language-flag">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1e7-1f1f7.png"
+    class="language-flag"
+    alt="Brazil"
+>
+                    </span>
+
+                    <span class="language-info">
+                        <strong>Português</strong>
+                        <small>Brazil</small>
+                    </span>
+                </button>
+
+
+                <button
+                    class="translate-language"
+                    onclick="translateRiglify('fil')"
+                >
+                    <span class="language-flag">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1f5-1f1ed.png"
+    class="language-flag"
+    alt="Philippines"
+>
+                    </span>
+
+                    <span class="language-info">
+                        <strong>Filipino</strong>
+                        <small>Philippines</small>
+                    </span>
+                </button>
+
+
+                <button
+                    class="translate-language"
+                    onclick="translateRiglify('uk')"
+                >
+                    <span class="language-flag">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1fa-1f1e6.png"
+    class="language-flag"
+    alt="Ukraine"
+>
+                    </span>
+
+                    <span class="language-info">
+                        <strong>Українська</strong>
+                        <small>Ukraine</small>
+                    </span>
+                </button>
+
+
+                <button
+                    class="translate-language"
+                    onclick="translateRiglify('id')"
+                >
+                    <span class="language-flag">
+                        <img
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/72x72/1f1ee-1f1e9.png"
+    class="language-flag"
+    alt="Indonesia"
+>
+                    </span>
+
+                    <span class="language-info">
+                        <strong>Indonesian</strong>
+                        <small>Indonesia</small>
+                    </span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TRANSLATION SUCCESS NOTIFICATION
+     ========================================================= -->
+
+<div id="riglify-translation-notification">
+
+    <button
+        class="translation-notification-close"
+        onclick="closeTranslationNotification()"
+    >
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="translation-notification-title">
+        <i class="fa-solid fa-circle-check"></i>
+
+        <span>Successfully translated!</span>
+    </div>
+
+    <div
+        id="translated-success-text"
+        class="translated-success-text"
+    ></div>
+
+</div>
+
+
+<!-- =========================================================
+     TRANSLATION LOADING POPUP
+     ========================================================= -->
+
+<div id="riglify-translation-loading">
+
+    <div class="translation-loading-box">
+
+        <button
+            class="translation-loading-close"
+            onclick="closeTranslationLoading()"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <i class="fa-solid fa-spin fa-spin fa-xl"></i>
+
+        <h2>Translating...</h2>
+
+        <p>
+            Please wait while Riglify translates the site.
+        </p>
+
+    </div>
+
+</div>
+
+    <script
+    src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
+    
+        <link rel="stylesheet" href="/css/google_translate.css" />
+    <script src="/js/google_translate.js"></script>
+    
+    
+    
+    
+    
+    
+    
+    <!-- coming soon script -->
+    <script>
+(function () {
+    const path = window.location.pathname.toLowerCase();
+
+    const comingSoonPages = {
+        "/bundles": "Bundles",
+        "/bundles/": "Bundles",
+
+        "/items": "Items",
+        "/items/": "Items",
+
+        "/models": "Models",
+        "/models/": "Models",
+
+        "/tutorials": "Tutorials",
+        "/tutorials/": "Tutorials"
+    };
+
+    if (comingSoonPages[path]) {
+        window.location.replace(
+            "/comingsoon.html?page=" +
+            encodeURIComponent(comingSoonPages[path])
+        );
+    }
+})();
+</script>
+
+    <!-- scripts -->
+    <!-- ------------------------- MAIN --------------------------- -->
+<script src="/js/script.js"></script>
+<script src="https://github.com/Riglify/backend/raw/refs/heads/main/server.js"></script>
+    <!-- ------------------------- WEBCODE MOBILE DIRECTORIES --------------------------- -->  
+<script src="file:///storage/emulated/0/Download/Coding%20Testing/js/riglify-script.js"></script>
+<script src="file:///storage/emulated/0/Download/Riglify/server.js"></script>
+<!-- ------------------------- PHOENIX CODE (PC) --------------------------- -->  
+<script src="http://localhost:55866/riglify.github.io-main/js/script.js"></script>
+<!-- ------------------------- STATUS PAGE --------------------------- -->  
+<script src="https://riglify.statuspage.io/embed/script.js"></script>    
+    
+  <!-- ------------------------- OTHER --------------------------- -->    
+    <!-- Import the component library for 3D rendering -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <script>
+    // Grab the DOM elements for the preview panels and buttons
+const img2d = document.getElementById('preview-image-2d');
+const container3d = document.getElementById('preview-container-3d');
+const btn2d = document.getElementById('btn-view-2d');
+const btn3d = document.getElementById('btn-view-3d');
+
+// When the user clicks the 3D View button
+btn3d.addEventListener('click', () => {
+    // Hide 2D image, show 3D container
+    img2d.style.display = 'none';
+    container3d.style.display = 'flex';
+    
+    // Update active button styles
+    btn3d.classList.add('active');
+    btn2d.classList.remove('active');
+});
+
+// When the user clicks the 2D View button
+btn2d.addEventListener('click', () => {
+    // Hide 3D container, show 2D image
+    container3d.style.display = 'none';
+    img2d.style.display = 'block';
+    
+    // Update active button styles
+    btn2d.classList.add('active');
+    btn3d.classList.remove('active');
+});
+    </script>
+    </body>
+</html>
