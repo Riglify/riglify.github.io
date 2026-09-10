@@ -1,8 +1,8 @@
 # Copyright & License
 
-**Copyright (c) 2026 Riglify. All rights reserved.
+**Copyright (c) 2026 Riglify. All rights reserved.**
 
-Last updated: September 10, 2026**
+**Last updated: September 10, 2026**
 
 ## Terms of Use
 
