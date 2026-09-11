@@ -368,10 +368,13 @@ currentViewingUserId = data.userId;
             <center><p>
             This probably happened because:
             <br />
-            
-            <li>Your internet is too slow for the backend to load.</li>
-            <li>We weren't able to import your avatar in time.</li>
-            <li>Our backend is temporarily down due to an issue.</li>
+            <br/>
+            - Your internet is too slow for the backend to load.
+            <br />
+            - We weren't able to import your avatar in time.
+            <br />
+            - Our backend is temporarily down due to an issue.
+            <br />
             
             <br />
             Please try again, and if you see this popup again, please join our Discord server or Telegram channel for support, located in the footer.
