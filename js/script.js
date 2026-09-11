@@ -365,19 +365,19 @@ currentViewingUserId = data.userId;
                 <p style="color:red;" align="center">
                     <i class="fa-solid fa-face-sad-cry" style="color: rgb(255, 0, 0);"></i> Failed to import avatar!
                 </p>
-            <p>
+            <center><p>
             This probably happened because:
             <br />
             
             <li>Your internet is too slow for the backend to load.</li>
             <li>We weren't able to import your avatar in time.</li>
-            <li>(<b>MOST LIKELY</b>): Our backend is temporarily down due to an issue.</li>
+            <li>Our backend is temporarily down due to an issue.</li>
             
             <br />
-            Please try again, and if you see this popup again, please join our Discord server or Telegram channel for support (located in the footer).
+            Please try again, and if you see this popup again, please join our Discord server or Telegram channel for support, located in the footer.
             <br />
             Thank you!
-            </p>
+            </p></center>
             `;
         }
     }
@@ -786,6 +786,5 @@ function confirmLogout(){
     localStorage.removeItem("riglifyUser");
     window.location.reload();
                           }
-
 
 
