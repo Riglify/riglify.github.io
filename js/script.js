@@ -166,12 +166,22 @@ window.searchAvatar = async function(){
 
     if (overlay) overlay.style.display = "flex";
     if (content) {
-        content.innerHTML = `
-            <p style="color:#9ca3af;" align="center">
-                <i class="fa-solid fa-circle-notch fa-spin"></i> Importing avatar...
+    content.innerHTML = `
+        <div class="riglify-import-dialog">
+
+            <div class="riglify-dialog-icon">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+            </div>
+
+            <h2>Importing avatar...</h2>
+
+            <p id="slow-import-message">
+                Please wait while Riglify imports your avatar.
             </p>
-        `;
-    }
+
+        </div>
+    `;
+}
     
     /* Show a message if importing takes longer than 5 seconds */
 const loadingTimer = setTimeout(() => {
@@ -207,22 +217,54 @@ const loadingTimer = setTimeout(() => {
 }, 5000);
 
     try{
-        const res = await fetch(`https://riglify.onrender.com/avatar/${username}`);
+        const res = await fetch(
+    `https://riglify.onrender.com/avatar/${encodeURIComponent(username)}`
+);
+
 const data = await res.json();
+
+console.log("Riglify avatar response:", {
+    status: res.status,
+    ok: res.ok,
+    data
+});
+
+if (!res.ok) {
+    throw new Error(
+        data?.error ||
+        `Riglify backend returned HTTP ${res.status}.`
+    );
+}
 
 if(!data.success){
 
     clearTimeout(loadingTimer);
 
     if (content) {
-                content.innerHTML = `
-                    <p style="color:red;" align="center">
-                        <i class="fa-solid fa-x" style="color: rgb(255, 0, 0);"></i> User not found. Please try again.
-                    </p>
-                `;
-            }
-            return;
-        }
+        content.innerHTML = `
+            <div class="riglify-import-dialog riglify-error-dialog">
+
+                <div class="riglify-dialog-icon error-icon">
+                    <i class="fa-solid fa-face-frown"></i>
+                </div>
+
+                <h2>Avatar Not Found!</h2>
+
+                <p>
+                    We couldn't find a Roblox user with that
+                    username or User ID.
+                </p>
+
+                <p class="riglify-dialog-help">
+                    Please check the username or User ID and try again.
+                </p>
+
+            </div>
+        `;
+    }
+
+    return;
+}
         
         clearTimeout(loadingTimer);
 
@@ -357,31 +399,65 @@ currentViewingUserId = data.userId;
             }
         }, 50);
 
-    } catch(err) {
-        clearTimeout(loadingTimer);
-        console.log(err);
-        if (content) {
-            content.innerHTML = `
-                <p style="color:red;" align="center">
-                    <i class="fa-solid fa-face-sad-cry" style="color: rgb(255, 0, 0);"></i> Failed to import avatar!
+} catch(err) {
+
+    clearTimeout(loadingTimer);
+
+    console.error("Avatar import error:", err);
+
+    if (content) {
+
+        let reason =
+            "An unexpected error occurred while importing your avatar.";
+
+        if (!navigator.onLine) {
+
+            reason =
+                "Your internet connection appears to be offline.";
+
+        } else if (
+            err?.message &&
+            err.message.toLowerCase().includes("failed to fetch")
+        ) {
+
+            reason =
+                "Riglify's backend could not be reached. It may be temporarily offline.";
+
+        } else if (
+            err?.message &&
+            err.message.toLowerCase().includes("timeout")
+        ) {
+
+            reason =
+                "The request timed out while waiting for Roblox's API.";
+
+        }
+
+        content.innerHTML = `
+            <div class="riglify-import-dialog riglify-error-dialog">
+
+                <div class="riglify-dialog-icon error-icon">
+                    <i class="fa-solid fa-face-frown"></i>
+                </div>
+
+                <h2>Import Failed!</h2>
+
+                <p>
+                    This happened because:
                 </p>
-            <center><p>
-            This probably happened because:
-            <br />
-            <br/>
-            - Your internet is too slow for the backend to load.
-            <br />
-            - We weren't able to import your avatar in time.
-            <br />
-            - Our backend is temporarily down due to an issue.
-            <br />
-            
-            <br />
-            Please try again, and if you see this popup again, please join our Discord server or Telegram channel for support, located in the footer.
-            <br />
-            Thank you!
-            </p></center>
-            `;
+
+                <p class="riglify-dialog-reason">
+                    ${reason}
+                </p>
+
+                <p class="riglify-dialog-help">
+                    Try again! If the problem keeps happening,
+                    please contact us through the Discord server
+                    or Telegram channel in the footer.
+                </p>
+
+            </div>
+        `;
         }
     }
 }
@@ -789,5 +865,4 @@ function confirmLogout(){
     localStorage.removeItem("riglifyUser");
     window.location.reload();
                           }
-
 
