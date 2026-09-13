@@ -1660,753 +1660,547 @@ model-viewer:active {
     to { transform: rotate(360deg); }
 }
 
-/* ==========================================================================
-   DOWNLOAD PROGRESS POPUP
-   ========================================================================== */
-
-#download-progress-overlay{
-    display:none;
-
-    position:fixed;
-    inset:0;
-
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(10px);
-
-    align-items:center;
-    justify-content:center;
-
-    padding:20px;
-
-    z-index:100000;
-}
-
-#download-progress-overlay.active{
-    display:flex;
-}
-
-#download-progress-box{
-    width:100%;
-    max-width:460px;
-
-    background:#11151d;
-
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:26px;
-
-    padding:30px;
-
-    box-shadow:0 0 50px rgba(0,0,0,.55);
-}
-
-.download-progress-header{
-    text-align:center;
-    margin-bottom:28px;
-}
-
-.download-progress-icon{
-    width:64px;
-    height:64px;
-
-    margin:0 auto 18px;
-
-    border-radius:20px;
-
-    background:linear-gradient(135deg,#5b8cff,#785cff);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:25px;
-}
-
-.download-progress-header h2{
-    font-size:23px;
-    margin-bottom:8px;
-}
-
-.download-progress-header p{
-    color:#9ca3af;
-    font-size:14px;
-    line-height:1.5;
-}
-
-/* STEPS */
-
-.download-steps{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.download-step{
-    display:flex;
-    align-items:center;
-    gap:13px;
-
-    padding:13px 15px;
-
-    border-radius:14px;
-
-    background:#171c26;
-
-    color:#7f8795;
-
-    font-size:14px;
-
-    transition:.25s ease;
-}
-
-.download-step i{
-    width:20px;
-    text-align:center;
-}
-
-/* ACTIVE */
-
-.download-step.active{
-    color:#d5d9e2;
-    background:#1d2432;
-}
-
-/* COMPLETE */
-
-.download-step.complete{
-    color:#8effb0;
-    background:rgba(123,255,168,.08);
-}
-
-.download-step.complete i{
-    color:#8effb0;
-}
-
-/* SPINNER */
-
-.download-step.active i{
-    color:#7b8cff;
-}
-
-/* COMPLETE MESSAGE */
-
-.download-complete{
-    display:none;
-
-    margin-top:22px;
-
-    text-align:center;
-
-    color:#8effb0;
-
-    font-size:14px;
-    font-weight:600;
-}
-
-.download-complete.show{
-    display:block;
-}
-
-/* CANCEL BUTTON */
-
-.download-cancel{
-    width:100%;
-
-    margin-top:22px;
-
-    height:46px;
-
-    border:none;
-    border-radius:14px;
-
-    background:#1d2432;
-
-    color:#9ca3af;
-
-    cursor:pointer;
-
-    font-family:'Inter',sans-serif;
-
-    transition:.2s;
-}
-
-.download-cancel:hover{
-    background:#252d3d;
-    color:white;
-}
-
-/* download popup / .download-popup...etc */
-
-.download-popup-overlay{
-    position:fixed;
-    inset:0;
-
-    background:rgba(0,0,0,.75);
-    backdrop-filter:blur(10px);
-
-    display:none;
-
-    align-items:center;
-    justify-content:center;
-
-    z-index:999999;
-
-    padding:20px;
-}
-
-.download-popup-overlay.active{
-    display:flex;
-}
-
-.download-popup{
-    width:100%;
-    max-width:520px;
-
-    max-height:90vh;
-    overflow-y:auto;
-
-    background:#11151d;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:28px;
-
-    padding:32px;
-
-    text-align:center;
-
-    box-shadow:0 0 50px rgba(0,0,0,.55);
-}
-
-.download-popup-icon{
-    width:72px;
-    height:72px;
-
-    margin:0 auto 20px;
-
-    border-radius:22px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#1a1f2b;
-
-    color:#7b8cff;
-
-    font-size:28px;
-}
-
-.download-popup h2{
-    margin-bottom:10px;
-}
-
-.download-popup-subtitle{
-    color:#9ca3af;
-    line-height:1.6;
-}
-
-.download-checklist{
-    margin-top:28px;
-
-    display:flex;
-    flex-direction:column;
-
-    gap:14px;
-
-    text-align:left;
-}
-
-.download-step{
-    display:flex;
-    align-items:center;
-
-    gap:12px;
-
-    padding:14px 16px;
-
-    background:#141821;
-
-    border:1px solid rgba(255,255,255,.06);
-
-    border-radius:14px;
-
-    color:#8d95a3;
-
-    transition:.25s ease;
-}
-
-.download-step i{
-    font-size:18px;
-}
-
-.download-step.completed{
-    color:#8effb0;
-
-    border-color:rgba(123,255,168,.18);
-
-    background:rgba(123,255,168,.06);
-}
-
-.download-progress-note{
-    margin-top:22px;
-
-    color:#707887;
-
-    font-size:13px;
-
-    line-height:1.6;
-}
-
-.success-icon{
-    color:#8effb0;
-}
-
-.failure-icon{
-    color:#ff7777;
-}
-
-.download-popup-section{
-    margin-top:26px;
-
-    text-align:left;
-}
-
-.download-popup-section h3{
-    font-size:15px;
-    margin-bottom:12px;
-}
-
-.download-popup-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.download-popup-buttons a,
-.download-popup-buttons button{
-    display:block;
-
-    width:100%;
-
-    padding:13px 16px;
-
-    border:none;
-
-    border-radius:13px;
-
-    background:#1a1f2b;
-
-    color:white;
-
-    text-decoration:none;
-
-    text-align:center;
-
-    cursor:pointer;
-
-    font-family:'Inter',sans-serif;
-
-    transition:.2s;
-}
-
-.download-popup-buttons a:hover,
-.download-popup-buttons button:hover{
-    background:#232a3a;
-}
-
-.download-popup-close{
-    width:100%;
-
-    margin-top:26px;
-
-    padding:14px;
-
-    border:none;
-
-    border-radius:14px;
-
-    background:linear-gradient(
-        135deg,
-        #5b8cff,
-        #785cff
-    );
-
-    color:white;
-
-    font-weight:600;
-
-    cursor:pointer;
-}
-
-.download-error-box{
-    margin-top:20px;
-
-    padding:16px;
-
-    border-radius:14px;
-
-    background:rgba(255,90,90,.08);
-
-    border:1px solid rgba(255,90,90,.18);
-
-    color:#ffb0b0;
-
-    text-align:left;
-
-    line-height:1.6;
-}
-
-.download-failure-message{
-    margin-top:18px;
-
-    color:#9ca3af;
-
-    line-height:1.6;
-
-    font-size:14px;
-}
-
-.download-popup-cancel{
-    margin-top:20px;
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    background:#2b2f38;
-    color:#fff;
-    font-weight:600;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.download-popup-cancel:hover{
-    background:#3b404b;
-}
-
-#backend-announcement {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 20px;
-    background: #3a2200;
-    border-bottom: 1px solid #8a5700;
-}
-
-.backend-announcement-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #fbbf24;
-}
-
-.backend-announcement-content i {
-    font-size: 20px;
-    flex-shrink: 0;
-}
-
-.backend-announcement-content strong {
-    display: block;
-    color: #fbbf24;
-    font-size: 15px;
-}
-
-.backend-announcement-content p {
-    margin: 3px 0 0;
-    color: #d1d5db;
-    font-size: 13px;
-    line-height: 1.4;
-}
-
 /* =========================================================
-   RIGLIFY 404 PAGE BUTTONS
-   ========================================================= */
+   DOWNLOAD POPUP
+========================================================= */
 
-.error-actions {
+.download-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
 
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 12px;
-
-    flex-wrap: wrap;
-
-    margin-top: 24px;
-
-}
-
-
-.error-btn {
-
-    display: inline-flex;
-
-    align-items: center;
+    display: none;
 
     justify-content: center;
-
-    gap: 9px;
-
-    min-width: 170px;
-
-    padding: 12px 18px;
-
-    border-radius: 10px;
-
-    text-decoration: none;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    transition:
-        transform 0.2s ease,
-        opacity 0.2s ease;
-
-}
-
-
-.error-btn:hover {
-
-    transform: translateY(-2px);
-
-    opacity: 0.9;
-
-}
-
-
-.error-btn.primary {
-
-    background: #ffffff;
-
-    color: #111827;
-
-}
-
-
-.error-btn.secondary {
-
-    background: #5865F2;
-
-    color: #ffffff;
-
-}
-
-
-@media (max-width: 500px) {
-
-    .error-actions {
-
-        flex-direction: column;
-
-        width: 100%;
-
-    }
-
-    .error-btn {
-
-        width: 100%;
-
-        box-sizing: border-box;
-
-    }
-
-}
-
-
-/* =========================================================
-   RIGLIFY - COMING SOON PAGE
-   ========================================================= */
-
-.coming-soon-page {
-    min-height: 65vh;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 80px 20px;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
 }
 
-.coming-soon {
-    width: 100%;
-    max-width: 700px;
-    text-align: center;
-}
+.download-popup {
+    width: min(520px, 100%);
 
-.coming-soon-icon {
-    width: 90px;
-    height: 90px;
-    margin: 0 auto 25px;
+    max-height: 90vh;
+    overflow-y: auto;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 32px;
 
-    border-radius: 24px;
+    border-radius: 22px;
 
-    background: rgba(255, 193, 7, 0.12);
-    border: 1px solid rgba(255, 193, 7, 0.25);
+    background:
+        linear-gradient(
+            145deg,
+            #161b22,
+            #0d1117
+        );
 
-    color: #ffc107;
-
-    font-size: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 
     box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.25),
-        0 0 35px rgba(255, 193, 7, 0.08);
+        0 25px 80px rgba(0, 0, 0, 0.6);
 
-    animation: comingSoonFloat 3s ease-in-out infinite;
+    color: white;
+
+    text-align: center;
+
+    animation: downloadPopupIn 0.25s ease;
 }
 
-.coming-soon h2 {
+@keyframes downloadPopupIn {
+
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+}
+
+.download-popup-icon {
+
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 16px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(142, 68, 173, 0.18);
+
+    color: #c084fc;
+
+    font-size: 28px;
+
+}
+
+.download-popup h2 {
+
     margin: 0;
 
-    font-size: clamp(38px, 7vw, 64px);
-    font-weight: 800;
+    font-size: 25px;
 
-    letter-spacing: -2px;
-
-    color: #ffffff;
 }
 
-.coming-soon h2 span {
-    color: #ffc107;
-}
-
-.coming-soon > p {
-    max-width: 580px;
-    margin: 18px auto 0;
+.download-popup-subtitle {
 
     color: #9ca3af;
 
-    font-size: 16px;
-    line-height: 1.7;
+    margin: 10px 0 25px;
+
 }
 
-.coming-soon > p + p {
-    margin-top: 8px;
-}
+.download-checklist {
 
-
-/* BUTTONS */
-
-.coming-soon-actions {
     display: flex;
-    justify-content: center;
-    align-items: center;
+
+    flex-direction: column;
+
     gap: 12px;
 
-    margin-top: 30px;
+    text-align: left;
 
-    flex-wrap: wrap;
+    padding: 18px;
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.04);
+
 }
 
-.coming-soon-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
+.download-step {
 
-    padding: 12px 20px;
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #9ca3af;
+
+    transition: 0.25s ease;
+
+}
+
+.download-step i {
+
+    width: 20px;
+
+    text-align: center;
+
+    font-size: 18px;
+
+}
+
+.download-step.completed {
+
+    color: #22c55e;
+
+}
+
+.download-step.completed i {
+
+    color: #22c55e;
+
+}
+
+.download-progress-note {
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+    margin-top: 18px;
+
+}
+
+.success-icon {
+
+    background: rgba(34, 197, 94, 0.15);
+
+    color: #22c55e;
+
+}
+
+.failure-icon {
+
+    background: rgba(239, 68, 68, 0.15);
+
+    color: #ef4444;
+
+}
+
+.download-popup-section {
+
+    margin-top: 24px;
+
+    text-align: left;
+
+}
+
+.download-popup-section h3 {
+
+    margin-bottom: 12px;
+
+    font-size: 16px;
+
+}
+
+.download-popup-buttons {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+}
+
+.download-popup-buttons a,
+
+.download-popup-buttons button,
+
+.download-popup-close {
+
+    border: none;
 
     border-radius: 10px;
 
-    background: #ffffff;
-    color: #0b0d12;
+    padding: 10px 14px;
+
+    background: #8e44ad;
+
+    color: white;
 
     text-decoration: none;
 
-    font-size: 14px;
-    font-weight: 700;
+    cursor: pointer;
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        opacity 0.2s ease;
+    font-family: inherit;
+
+    transition: 0.2s ease;
+
 }
 
-.coming-soon-btn:hover {
+.download-popup-buttons a:hover,
+
+.download-popup-buttons button:hover,
+
+.download-popup-close:hover {
+
     transform: translateY(-2px);
 
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.3);
+    background: #a855f7;
 
-    opacity: 0.9;
 }
 
-.coming-soon-btn:active {
-    transform: translateY(0);
+.tutorial-buttons a {
+
+    background: #242b35;
+
+}
+
+.download-error-box {
+
+    margin: 20px 0;
+
+    padding: 14px;
+
+    border-radius: 10px;
+
+    background: rgba(239, 68, 68, 0.12);
+
+    border: 1px solid rgba(239, 68, 68, 0.3);
+
+    color: #fca5a5;
+
+    word-break: break-word;
+
+}
+
+.download-error-box strong {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #ef4444;
+
+}
+
+.download-failure-message {
+
+    color: #9ca3af;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+
+}
+
+.download-popup-close {
+
+    margin-top: 25px;
+
+    background: #242b35;
+
 }
 
 
-/* SECONDARY BUTTON */
+/* ============================================================
+   RIGLIFY IMPORT / ERROR POPUPS
+   ============================================================ */
 
-.coming-soon-btn.secondary {
-    background: #5865f2;
-    color: #ffffff;
+.riglify-import-dialog {
+    width: 100%;
+    min-height: 330px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    box-sizing: border-box;
+
+    padding: 50px 45px;
 }
 
-.coming-soon-btn.secondary:hover {
-    box-shadow:
-        0 8px 25px rgba(88, 101, 242, 0.25);
+/* Main icon */
+.riglify-dialog-icon {
+    width: 76px;
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 24px;
+
+    border-radius: 22px;
+
+    background: #111827;
+    color: #38bdf8;
+
+    font-size: 34px;
+}
+
+/* Error icon */
+.riglify-dialog-icon.error-icon {
+    color: #ef4444;
+}
+
+/* Title */
+.riglify-import-dialog h2 {
+    margin: 0;
+
+    color: #f8fafc;
+
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+/* Main description */
+.riglify-import-dialog p {
+    max-width: 470px;
+
+    margin: 14px auto 0;
+
+    color: #9ca3af;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Error explanation */
+.riglify-dialog-reason {
+    color: #d1d5db !important;
+
+    font-weight: 500;
+}
+
+/* Extra help text */
+.riglify-dialog-help {
+    max-width: 440px;
+
+    margin-top: 22px !important;
+
+    color: #6b7280 !important;
+
+    font-size: 13px !important;
+    line-height: 1.55 !important;
 }
 
 
-/* FLOATING ICON */
+/* ============================================================
+   SLOW IMPORT MESSAGE
+   ============================================================ */
 
-@keyframes comingSoonFloat {
+#slow-import-message {
+    color: #6b7280 !important;
 
-    0%,
-    100% {
-        transform: translateY(0);
+    font-size: 13px !important;
+}
+
+
+/* ============================================================
+   RIGLIFY IMPORT / ERROR POPUP
+   ============================================================ */
+
+#avatar-popup:has(.riglify-import-dialog) {
+    width: 540px !important;
+    height: 540px !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+
+    box-sizing: border-box;
+}
+
+#avatar-popup:has(.riglify-import-dialog) #avatar-popup-content {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+
+.riglify-import-dialog {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    box-sizing: border-box;
+
+    padding: 45px 40px;
+}
+
+.riglify-dialog-icon {
+    width: 78px;
+    height: 78px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 24px;
+
+    border-radius: 22px;
+
+    background: #111827;
+    color: #38bdf8;
+
+    font-size: 35px;
+}
+
+.riglify-dialog-icon.error-icon {
+    color: #ef4444;
+}
+
+.riglify-import-dialog h2 {
+    margin: 0;
+    font-size: 31px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.riglify-import-dialog p {
+    max-width: 500px;
+    margin: 16px auto 0;
+
+    color: #9ca3af;
+
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.riglify-dialog-reason {
+    font-size: 17px !important;
+    font-weight: 600;
+    color: #d1d5db !important;
+}
+
+.riglify-dialog-help {
+    max-width: 480px;
+    margin-top: 25px !important;
+
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+}
+
+
+/* ============================================================
+   SPINNER
+   ============================================================ */
+
+.riglify-dialog-icon .fa-spin {
+    animation: riglify-spin 1s linear infinite !important;
+}
+
+@keyframes riglify-spin {
+    from {
+        transform: rotate(0deg);
     }
 
-    50% {
-        transform: translateY(-7px);
+    to {
+        transform: rotate(360deg);
     }
-
 }
 
 
-/* MOBILE */
+/* ============================================================
+   MOBILE
+   ============================================================ */
 
 @media (max-width: 600px) {
 
-    .coming-soon-page {
-        min-height: 60vh;
-        padding: 60px 18px;
+    #avatar-popup:has(.riglify-import-dialog) {
+        width: calc(100vw - 28px) !important;
+        height: calc(100vw - 28px) !important;
+
+        max-width: calc(100vw - 28px);
+        max-height: calc(100vh - 28px);
     }
 
-    .coming-soon-icon {
-        width: 75px;
-        height: 75px;
+    .riglify-import-dialog {
+        padding: 35px 22px;
+    }
 
+    .riglify-dialog-icon {
+        width: 68px;
+        height: 68px;
         font-size: 30px;
-
-        border-radius: 20px;
     }
 
-    .coming-soon h2 {
-        font-size: 42px;
-        letter-spacing: -1.5px;
+    .riglify-import-dialog h2 {
+        font-size: 25px;
     }
 
-    .coming-soon > p {
+    .riglify-import-dialog p {
         font-size: 14px;
     }
-
-    .coming-soon-actions {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .coming-soon-btn {
-        width: 100%;
-        max-width: 280px;
-    }
-
 }
-
-
-
