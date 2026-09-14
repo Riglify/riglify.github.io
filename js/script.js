@@ -390,7 +390,8 @@ currentViewingUserId = data.userId;
                     // SECURE SHIELD: Ignore any close button elements living inside the formats modal panel context
                     if (btn.closest('#formatsModalOverlay')) return;
 
-                    if (btn.textContent.trim() === '×' || btn.textContent.toLowerCase().includes('x') || btn.classList.contains('close-popup-btn')) {
+                    if (btn.textContent.trim() === '×' ||
+    btn.classList.contains('close-popup-btn')) {
                         btn.onclick = function() {
                             closeAvatarPopup();
                         };
@@ -574,46 +575,66 @@ const response = await fetch(downloadUrl, {
 
         const blob = await response.blob();
 
-        // STEP 4
-        checkDownloadStep(4);
+// STEP 4
+checkDownloadStep(4);
 
-        const blobUrl =
-            window.URL.createObjectURL(blob);
+// RBXM downloads directly from Render so the avatar popup
+// stays open instead of navigating to the RBXM blob.
+if (id === "all_rbxm") {
 
-        const link =
-            document.createElement("a");
+    // STEP 5
+    checkDownloadStep(5);
 
-        link.href = blobUrl;
+    const downloadFrame = document.createElement("iframe");
 
-        const extensionMap = {
-    all_obj: "zip",
-    all_glb: "glb",
-    all_rbxm: "rbxm",
-    unity_fbx: "fbx",
-    unreal_fbx: "fbx",
-    blender_glb: "glb",
-    maya_obj: "obj",
-    c4d_dae: "dae",
-    all_ply: "ply",
-    all_stl: "stl"
-};
+    downloadFrame.style.display = "none";
+    downloadFrame.src = downloadUrl;
 
-const extension =
-    extensionMap[id] || "rbxm";
+    document.body.appendChild(downloadFrame);
 
-link.download =
-    `Riglify_${id}.${extension}`;
+    setTimeout(() => {
+        downloadFrame.remove();
+    }, 10000);
 
-        document.body.appendChild(link);
+} else {
 
-        // STEP 5
-        checkDownloadStep(5);
+    const blobUrl =
+        window.URL.createObjectURL(blob);
 
-        link.click();
+    const link =
+        document.createElement("a");
 
-        link.remove();
+    link.href = blobUrl;
 
-        window.URL.revokeObjectURL(blobUrl);
+    const extensionMap = {
+        all_obj: "zip",
+        all_glb: "glb",
+        unity_fbx: "fbx",
+        unreal_fbx: "fbx",
+        blender_glb: "glb",
+        maya_obj: "obj",
+        c4d_dae: "dae",
+        all_ply: "ply",
+        all_stl: "stl"
+    };
+
+    const extension =
+        extensionMap[id] || "zip";
+
+    link.download =
+        `Riglify_${id}.${extension}`;
+
+    document.body.appendChild(link);
+
+    // STEP 5
+    checkDownloadStep(5);
+
+    link.click();
+
+    link.remove();
+
+    window.URL.revokeObjectURL(blobUrl);
+}
         
         downloadController = null;
 
