@@ -572,8 +572,24 @@ const response = await fetch(downloadUrl, {
 
         link.href = blobUrl;
 
-        link.download =
-            `Riglify_${id}.zip`;
+        const extensionMap = {
+    all_obj: "zip",
+    all_glb: "glb",
+    all_rbxm: "rbxm",
+    unity_fbx: "fbx",
+    unreal_fbx: "fbx",
+    blender_glb: "glb",
+    maya_obj: "obj",
+    c4d_dae: "dae",
+    all_ply: "ply",
+    all_stl: "stl"
+};
+
+const extension =
+    extensionMap[id] || "rbxm";
+
+link.download =
+    `Riglify_${id}.${extension}`;
 
         document.body.appendChild(link);
 
