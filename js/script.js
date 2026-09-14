@@ -183,6 +183,18 @@ window.searchAvatar = async function(){
     `;
 }
     
+    // Press Enter / Go in the avatar input to import
+const avatarInput = document.getElementById("avatarInput");
+
+if (avatarInput) {
+    avatarInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            searchAvatar();
+        }
+    });
+}
+    
     /* Show a message if importing takes longer than 5 seconds */
 const loadingTimer = setTimeout(() => {
 
